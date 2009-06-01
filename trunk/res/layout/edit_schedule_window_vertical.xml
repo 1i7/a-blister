@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:id="@+id/editScheduleMainLayout" android:orientation="vertical">
+	
+	<LinearLayout android:layout_width="fill_parent" android:id="@+id/editScheduleTopPanel"
+		android:orientation="horizontal" android:layout_height="wrap_content" android:minHeight="65dip" android:background="@drawable/top_bar">
+		
+		<LinearLayout android:layout_width="wrap_content" android:id="@+id/editScheduleImageLayout" android:layout_height="fill_parent"><ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/editScheduleImage" android:layout_marginLeft="10dip" android:src="@drawable/shield" android:adjustViewBounds="true" android:scaleType="fitXY" android:maxHeight="50dip" android:layout_gravity="center"></ImageView>
+</LinearLayout><LinearLayout android:layout_height="wrap_content"
+			android:id="@+id/editScheduleTextLayout" android:layout_width="fill_parent"
+			android:orientation="vertical" android:layout_gravity="bottom" android:layout_marginBottom="10dip">
+			<TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"
+				android:id="@+id/editScheduleText" android:layout_gravity="center_horizontal" android:text="Title" android:layout_width="fill_parent" android:paddingLeft="20dip" android:paddingRight="6dip"></TextView>
+		</LinearLayout>
+	</LinearLayout><LinearLayout android:layout_weight="1"
+		android:layout_width="fill_parent" android:id="@+id/editScheduleDataLayout"
+		android:layout_height="fill_parent" android:orientation="horizontal">
+
+
+		<LinearLayout android:layout_width="fill_parent" android:orientation="vertical"
+			android:id="@+id/editScheduleDataPanel" android:layout_height="fill_parent">
+			<LinearLayout android:layout_height="wrap_content"
+				android:layout_width="fill_parent" android:id="@+id/editScheduleNameLayout"
+				android:orientation="horizontal">
+				<TextView android:layout_height="wrap_content" android:id="@+id/editScheduleNameText"
+					android:layout_width="fill_parent"
+					android:text="@string/new_schedule_name_text" android:textStyle="bold" android:textColor="#ffffff" android:layout_gravity="center" android:gravity="right|center_vertical" android:paddingRight="10dip" android:layout_weight="2"></TextView>
+				
+			<LinearLayout android:id="@+id/editScheduleEditNameLayout" android:layout_gravity="center" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginTop="3dip"><EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:lines="1" android:ellipsize="start" android:id="@+id/editScheduleEditName" android:gravity="center" android:textAppearance="?android:attr/textAppearanceLargeInverse" android:textSize="20sp" android:singleLine="true" android:layout_gravity="center" android:layout_marginLeft="10dip" android:minWidth="260dip"></EditText></LinearLayout>
+</LinearLayout>
+			<LinearLayout android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_width="fill_parent" android:id="@+id/editScheduleParamsLayout" android:orientation="horizontal">
+				<TextView android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="@string/new_schedule_extra_params_text" android:id="@+id/editScheduleParamsText" android:textStyle="bold" android:textColor="#ffffff" android:gravity="right|center_vertical" android:paddingRight="10dip" android:layout_weight="2" android:layout_gravity="top" android:layout_marginTop="20dip"></TextView>
+				
+
+
+			<LinearLayout android:id="@+id/editScheduleSetParamsLayout" android:layout_gravity="center" android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="fill_parent"><LinearLayout android:orientation="vertical" android:layout_gravity="center" android:id="@+id/editScheduleSetParamsPanel" android:layout_width="wrap_content" android:layout_height="fill_parent" android:minWidth="280dip" android:background="@android:drawable/alert_dark_frame">
+					<Spinner android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/editScheduleSpinner" android:layout_width="fill_parent" android:prompt="@string/schedule_params_spinner_tag"></Spinner>
+					<LinearLayout android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_width="fill_parent" android:orientation="horizontal" android:id="@+id/editScheduleValueLayout" android:clickable="true" android:focusable="true" android:background="@drawable/menuitem_background" android:minHeight="50dip">
+
+						<TextView android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent" android:gravity="right" android:layout_gravity="center" android:text="@string/new_schedule_value_text" android:id="@+id/editScheduleValueTitle" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+
+						<LinearLayout android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent" android:orientation="vertical" android:id="@+id/editScheduleValueTextLayout" android:layout_gravity="center">
+							
+						<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/editScheduleValueText" android:text="---" android:layout_gravity="center" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+</LinearLayout>
+					</LinearLayout>
+				
+</LinearLayout></LinearLayout>
+</LinearLayout>
+			
+		</LinearLayout>
+	</LinearLayout>
+	<LinearLayout android:layout_gravity="center_horizontal"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:orientation="vertical" android:id="@+id/editScheduleBottomButtonPanel"
+		android:visibility="visible" android:background="@android:drawable/bottom_bar">
+
+
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
+			android:layout_marginBottom="5dip" android:layout_marginTop="5dip"
+			android:id="@+id/editScheduleBottomButtonLayout">
+			<Button android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="OK"
+				android:minWidth="100dip" android:id="@+id/editScheduleOKButton"></Button>
+		</LinearLayout>
+	</LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>
