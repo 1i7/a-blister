@@ -26,7 +26,7 @@
 	<string name="temporarily_unavailable_message">Sorry, this option is temporarily unavailable</string>
 
 	<string name="new_schedule_name_text">Name</string>
-	<string name="new_schedule_extra_params_text">Parameters</string>
+	<string name="new_schedule_extra_params_text">Course parameters</string>
 	<string name="new_schedule_value_text">Value</string>
 	<string name="new_schedule_pills_text">Number of pills</string>
 	<string name="new_schedule_duration_text">Duration of course (days)</string>
@@ -61,7 +61,7 @@
 	<string name="set_number_of_pills_text">Set number of pills</string>
 	<string name="clear_all_text">Clear all</string>
 
-	<string name="schedule_params_spinner_tag">Choose parameters</string>
+	<string name="schedule_params_spinner_tag">Choose parameter</string>
 	<string name="main_window_title">Your pill courses</string>
 	<string name="edit_schedule_window_title">New course</string>
 	<string name="times_list_is_empty">Timetable is empty</string>
@@ -72,4 +72,8 @@
 	<string name="time_preset">-- : --</string>
 	<string name="number_preset">---</string>
 
+<string name="set_button">Set</string>
+<string name="duration">Duration</string>
+<string name="number">Pills</string>
+<string name="saved_message">Saved successfully</string>
 </resources>

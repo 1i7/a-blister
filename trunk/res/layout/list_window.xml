@@ -21,15 +21,12 @@
 		android:id="@+id/ListWindowListLayout" android:orientation="horizontal">
 		<LinearLayout android:id="@android:id/empty"
 			android:layout_gravity="center_vertical" android:layout_weight="1"
-			android:layout_height="fill_parent" android:layout_width="fill_parent"
-			android:orientation="vertical">
-			<LinearLayout android:layout_width="wrap_content"
-				android:layout_gravity="center_horizontal" android:layout_height="fill_parent"
-				android:id="@+id/ListWindowEmptyListLayout">
-				<TextView android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"
-					android:id="@+id/ListWindowEmptyListText" android:text="Empty list" android:layout_gravity="center_vertical" android:gravity="center"></TextView>
-			</LinearLayout>
+			android:layout_height="fill_parent" android:layout_width="fill_parent" android:orientation="horizontal">
+			<LinearLayout android:id="@+id/ListWindowEmptyListLayout" android:layout_width="fill_parent" android:orientation="vertical" android:layout_height="wrap_content" android:layout_gravity="center">
+				<TextView android:layout_height="wrap_content" android:id="@+id/ListWindowEmptyListText" android:text="Empty list" android:layout_gravity="center_vertical" android:gravity="center" android:layout_width="fill_parent" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+			<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Add1" android:id="@+id/ListWindowEmptyListAddButton1" android:layout_gravity="center" android:minWidth="270dip" android:layout_marginTop="10dip"></Button><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/ListWindowEmptyListAddButton2" android:text="Add2" android:layout_gravity="center" android:layout_marginTop="10dip" android:minWidth="270dip"></Button>
+
+</LinearLayout>
 		</LinearLayout>
 		<ListView android:id="@android:id/list"
 			android:layout_weight="1" android:layout_width="fill_parent" android:layout_height="fill_parent" android:transcriptMode="normal"></ListView>
@@ -41,7 +38,7 @@
 		<LinearLayout android:id="@+id/ListWindowBottomButtonLayout" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_width="fill_parent" android:orientation="vertical">
 			<Button android:layout_width="wrap_content"
 				android:text="OK"
-				android:minWidth="100dip" android:id="@+id/ListWindowOKButton" android:layout_gravity="center" android:layout_height="fill_parent"></Button>
+				android:id="@+id/ListWindowOKButton" android:layout_gravity="center" android:layout_height="fill_parent" android:minWidth="100dip"></Button>
 		</LinearLayout>
 	</LinearLayout>
 

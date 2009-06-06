@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -30,6 +32,9 @@ public class MainWindow extends ListWindow {
 
 	private static final int CLEAR_ALL_ITEM_DIALOG = 0;
 	private static final int DELETE_ITEM_DIALOG = 1;
+	
+	Button addButton1;
+	Button addButton2;
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -86,9 +91,17 @@ public class MainWindow extends ListWindow {
 		stopService(new Intent(this, NotificationService.class));
 		NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		manager.cancelAll();
+		
+		addButton1 = (Button)findViewById(R.id.ListWindowEmptyListAddButton1);
+		addButton2 = (Button)findViewById(R.id.ListWindowEmptyListAddButton2);
+		addButton1.setText(R.string.add_text);
+		addButton2.setVisibility(View.GONE);
+		
 		((TextView)findViewById(R.id.ListWindowText)).setText(R.string.main_window_title);
 		((TextView)findViewById(R.id.ListWindowEmptyListText)).setText(R.string.schedules_list_is_empty);
 		registerForContextMenu(dataList);
+		
+		setButtonListeners();
 
 		Log.v("eldar", "MainWindow: created");
 	}
@@ -99,6 +112,14 @@ public class MainWindow extends ListWindow {
 		startService(new Intent(this, NotificationService.class));
 		super.onDestroy();
 		Log.v("eldar", "MainWindow: destroyed");
+	}
+	
+	private void setButtonListeners() {
+		addButton1.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				performAddAction();
+			}
+		});
 	}
 
 	@Override
@@ -113,10 +134,7 @@ public class MainWindow extends ListWindow {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.mainAddItem:
-			Intent intent = new Intent(MainWindow.this,
-					ScheduleInfoWindow.class)
-					.putExtra("newScheduleState", true);
-			startActivity(intent);
+			performAddAction();
 			return true;
 		case R.id.mainClearItem:
 			showDialog(CLEAR_ALL_ITEM_DIALOG);
@@ -204,6 +222,13 @@ public class MainWindow extends ListWindow {
 	private void performDeleteDialogOkPressed(int position) {
 		deleteItem(position);
 		refreshListActivity();
+	}
+	
+	private void performAddAction() {
+		Intent intent = new Intent(MainWindow.this,
+				ScheduleInfoWindow.class)
+				.putExtra("newScheduleState", true);
+		startActivity(intent);
 	}
 
 	private void deleteAllItems() {

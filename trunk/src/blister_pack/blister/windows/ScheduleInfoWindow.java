@@ -11,15 +11,19 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 import blister_pack.blister.R;
 import blister_pack.blister.database.BlisterDatabase;
 import blister_pack.blister.database.tables.Course;
@@ -48,10 +52,12 @@ public class ScheduleInfoWindow extends Activity {
 	EditText nameEditText;
 
 	Button okButton;
-	LinearLayout setValueLayout;
+	Button cancelButton;
+	Button setButton;
 	LinearLayout setValueDialogLayout;
 	Picker picker;
 	TextView valueText;
+	TextView valueNameText;
 	Spinner extraParamSpinner;
 
 	@Override
@@ -134,8 +140,10 @@ public class ScheduleInfoWindow extends Activity {
 		((TextView)findViewById(R.id.editScheduleText)).setText(R.string.edit_schedule_window_title);
 		nameEditText = (EditText) findViewById(R.id.editScheduleEditName);
 		okButton = (Button) findViewById(R.id.editScheduleOKButton);
-		setValueLayout = (LinearLayout)findViewById(R.id.editScheduleValueLayout);
+		cancelButton = (Button) findViewById(R.id.editScheduleCancelButton);
+		setButton = (Button)findViewById(R.id.editScheduleSetButton);
 		valueText = (TextView)findViewById(R.id.editScheduleValueText);
+		valueNameText = (TextView)findViewById(R.id.editScheduleValueTitle);
 		extraParamSpinner = (Spinner) findViewById(R.id.editScheduleSpinner);
 		LayoutInflater factory = LayoutInflater.from(this);
 		setValueDialogLayout= (LinearLayout)factory.inflate(R.layout.set_value_layout, null);
@@ -145,14 +153,14 @@ public class ScheduleInfoWindow extends Activity {
 				android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		extraParamSpinner.setAdapter(adapter);
-		
-		
 
 		if (newScheduleState) {
+			cancelButton.setVisibility(View.GONE);
 			okButton.setText(R.string.ok_text);
 		} else {
 			findViewById(R.id.editScheduleTopPanel).setVisibility(View.GONE);
 			okButton.setText(R.string.save_text);
+			cancelButton.setText(R.string.discard_text);
 		}		
 
 		setButtonListeners();
@@ -228,12 +236,30 @@ public class ScheduleInfoWindow extends Activity {
 				performOkButtonClick();
 			}
 		});
-
-		setValueLayout.setOnClickListener(new OnClickListener() {
+		
+		setButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				performSetValueButtonClick();
 			}
 		});
+		
+		cancelButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				performCancelButtonClick();
+			}
+		});
+		
+/*		extraParamSpinner.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				if (extraParamSpinner.getSelectedItem().equals(
+						getString(R.string.new_schedule_duration_text))) {
+					valueNameText.setText(R.string.duration);
+				} else if (extraParamSpinner.getSelectedItem().equals(
+						getString(R.string.new_schedule_pills_text))) {
+					valueNameText.setText(R.string.number);
+				}
+			}
+		}); */
 	}
 
 	/*
@@ -261,6 +287,11 @@ public class ScheduleInfoWindow extends Activity {
 						.putExtra("rebuildState", true);
 					startActivity(intent);
 					finish();
+					Toast mToast;
+					mToast = Toast.makeText(ScheduleInfoWindow.this, R.string.saved_message,
+		                    Toast.LENGTH_LONG);
+		//			mToast.setGravity(Gravity.BOTTOM, 0, 0);
+		            mToast.show();
 				}
 			} else {
 				showDialog(NAME_ALREADY_EXISTS_DIALOG);
@@ -268,6 +299,10 @@ public class ScheduleInfoWindow extends Activity {
 		} else {
 			showDialog(dialogId);
 		}
+	}
+	
+	private void performCancelButtonClick() {
+		// some action
 	}
 
 	protected void performSetValueButtonClick() {

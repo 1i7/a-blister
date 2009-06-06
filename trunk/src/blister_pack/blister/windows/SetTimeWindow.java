@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,6 +52,9 @@ public class SetTimeWindow extends ListWindow {
 	LinearLayout setValueLayout;
 	TimePicker timePicker;
 	LinearLayout timePickerLayout;
+	
+	Button addButton1;
+	Button addButton2;
 	
 	private class UserOperation {
 		
@@ -125,6 +129,11 @@ public class SetTimeWindow extends ListWindow {
 		okButton.setText(R.string.ok_text);
 		TextView tag = (TextView) findViewById(R.id.ListWindowText);
 		tag.setText(getIntent().getStringExtra("day"));
+		
+		addButton1 = (Button)findViewById(R.id.ListWindowEmptyListAddButton1);
+		addButton2 = (Button)findViewById(R.id.ListWindowEmptyListAddButton2);
+		addButton1.setText(R.string.add_time_text);
+		addButton2.setText(R.string.add_time_series_text);
 
 		setButtonListeners();
 		
@@ -253,12 +262,10 @@ public class SetTimeWindow extends ListWindow {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.setTimeAddDirectItem:
-			timePicker.setCurrentHour(0);
-			timePicker.setCurrentMinute(0);
-			showDialog(ADD_DIRECT_ITEM_DIALOG);
+			performAddTimeAction();
 			return true;
 		case R.id.setTimeAddRelativeItem:
-			startActivityForResult(new Intent(this,AddRelativeTimeWindow.class),ADD_REL_TIME_REQUEST_CODE);
+			performAddTimeSeriesAction();
 			return true;
 		case R.id.setTimeClearItem:
 			showDialog(CLEAR_ITEM_DIALOG);
@@ -338,6 +345,18 @@ public class SetTimeWindow extends ListWindow {
 				performOkButtonClick();
 			}
 		});
+		
+		addButton1.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				performAddTimeAction();
+			}
+		});
+		
+		addButton2.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				performAddTimeSeriesAction();
+			}
+		});
 	}
 
 	/*
@@ -378,6 +397,16 @@ public class SetTimeWindow extends ListWindow {
 		saveOperationsToDatabase();
 		finish();
 		Log.v("eldar", "SetDirectTimeTab: finish");
+	}
+	
+	protected void performAddTimeAction() {
+		timePicker.setCurrentHour(0);
+		timePicker.setCurrentMinute(0);
+		showDialog(ADD_DIRECT_ITEM_DIALOG);
+	}
+	
+	protected void performAddTimeSeriesAction() {
+		startActivityForResult(new Intent(this,AddRelativeTimeWindow.class),ADD_REL_TIME_REQUEST_CODE);
 	}
 
 	/*
