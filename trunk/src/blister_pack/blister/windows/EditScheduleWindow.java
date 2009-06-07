@@ -46,8 +46,5 @@ public class EditScheduleWindow extends TabActivity{
 		super.onDestroy();
 		Log.v("eldar","EditScheduleWindow: destroyed");
 	}
-
-	
-	
 	
 }

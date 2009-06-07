@@ -24,7 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import blister_pack.blister.R;
@@ -40,6 +39,7 @@ public class ScheduleInfoWindow extends Activity {
 	private static final int INCORRECT_DATA_DIALOG = 3;
 	private static final int NAME_ALREADY_EXISTS_DIALOG = 4;
 	private static final int SET_VALUE_DIALOG = 5;
+	private static final int DELETE_COURSE_DIALOG = 6;
 
 	private static final int PARSE_DATA_OK = 0;
 
@@ -68,8 +68,8 @@ public class ScheduleInfoWindow extends Activity {
 	
 	String initialName;
 	String initialValue;
-	int initialParameter;
-	boolean isDataChanged;
+	int initialSelection;
+	boolean isDataInitialized;
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -126,6 +126,20 @@ public class ScheduleInfoWindow extends Activity {
 						public void onClick(DialogInterface dialog, int whichButton) {
 							picker.refresh();
 							performSetValueDialogCancelPressed();
+						}
+				}).create();
+		case DELETE_COURSE_DIALOG:
+			return new AlertDialog.Builder(ScheduleInfoWindow.this)
+				.setTitle(R.string.delete_course_dialog_title)
+				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+						performDeleteCourseDialogOkPressed();
+					}
+				}).setNegativeButton(R.string.cancel_text,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
 						}
 				}).create();
 		}
@@ -226,8 +240,10 @@ public class ScheduleInfoWindow extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		optionsMenu = menu;
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.schedule_info_window_menu, menu);
+		if (!newScheduleState) {
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.schedule_info_window_menu, menu);
+		}
 		return true;
 	}
 	
@@ -235,7 +251,8 @@ public class ScheduleInfoWindow extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.infoDeleteItem:
-			// action
+			showDialog(DELETE_COURSE_DIALOG);
+			return true;
 		default:
 			return false;
 		}
@@ -245,7 +262,7 @@ public class ScheduleInfoWindow extends Activity {
 	protected void onResume() {
 		Log.v("eldar","hi");
 		super.onResume();
-		if (pillNameTitle == null) {
+		if (!isDataInitialized) {
 			if (!newScheduleState) {
 				pillNameTitle = getIntent().getStringExtra("pillName");
 				numberOfPills = getInitialNumberOfPills(pillNameTitle);
@@ -258,15 +275,15 @@ public class ScheduleInfoWindow extends Activity {
 					valueText.setText(parseIntToString(numberOfPills));
 				} else
 					valueText.setText(R.string.number_preset);
+				initialName = pillNameTitle;
+				initialSelection = extraParamSpinner.getSelectedItemPosition();
+				initialValue = valueText.getText().toString();
 			} else {
 				valueText.setText(R.string.number_preset);
 			}
 			nameEditText.setText(pillNameTitle);
+			isDataInitialized = true;
 		}
-		
-		initialName = nameEditText.getText().toString();
-		initialParameter = extraParamSpinner.getSelectedItemPosition();
-		initialValue = valueText.getText().toString();
 		
 		refreshButtonsActivity();
 		refreshDimText();
@@ -284,6 +301,13 @@ public class ScheduleInfoWindow extends Activity {
 		outState.putString("value_text", valueText.getText().toString());
 		outState.putBoolean("set_value_dialog_showing", setValueDialogShowing);
 		outState.putInt("picker_value", picker.getValue());
+		outState.putString("name_text", nameEditText.getText().toString());
+		
+		outState.putString("initial_name", initialName);
+		outState.putString("initial_value", initialValue);
+		outState.putInt("initial_selection", initialSelection);
+		outState.putBoolean("is_data_initialized", isDataInitialized);
+		
 		Log.v("eldar","ScheduleInfoWindow: instance state saved");
 	}
 
@@ -295,6 +319,12 @@ public class ScheduleInfoWindow extends Activity {
 		valueText.setText(bundle.getString("value_text"));
 		setValueDialogShowing=bundle.getBoolean("set_value_dialog_showing");
 		picker.setValue(bundle.getInt("picker_value"));
+		nameEditText.setText(bundle.getString("name_text"));
+		
+		initialName = bundle.getString("initial_name");
+		initialValue = bundle.getString("initial_value");
+		initialSelection = bundle.getInt("initial_selection");
+		isDataInitialized = bundle.getBoolean("is_data_initialized");
 	}
 
 	@Override
@@ -334,14 +364,15 @@ public class ScheduleInfoWindow extends Activity {
 		int parameter = extraParamSpinner.getSelectedItemPosition();
 		String value = valueText.getText().toString();
 		String name = nameEditText.getText().toString();
-		
-		if ((!value.equals(initialValue))||(parameter!=initialParameter)||
-				(!name.equals(initialName))) {
-			okButton.setEnabled(true);
-			cancelButton.setEnabled(true);
-		} else {
-			okButton.setEnabled(false);
-			cancelButton.setEnabled(false);
+		if (!newScheduleState) {
+			if ((!value.equals(initialValue))||(parameter!=initialSelection)||
+					(!name.equals(initialName))) {
+				okButton.setEnabled(true);
+				cancelButton.setEnabled(true);
+			} else {
+				okButton.setEnabled(false);
+				cancelButton.setEnabled(false);
+			}
 		}
 	}
 
@@ -372,7 +403,6 @@ public class ScheduleInfoWindow extends Activity {
 					Toast mToast;
 					mToast = Toast.makeText(ScheduleInfoWindow.this, R.string.saved_message,
 		                    Toast.LENGTH_LONG);
-		//			mToast.setGravity(Gravity.BOTTOM, 0, 0);
 		            mToast.show();
 				}
 			} else {
@@ -384,7 +414,7 @@ public class ScheduleInfoWindow extends Activity {
 	}
 	
 	private void performCancelButtonClick() {
-		extraParamSpinner.setSelection(initialParameter);
+		extraParamSpinner.setSelection(initialSelection);
 		valueText.setText(initialValue);
 		nameEditText.setText(initialName);
 		refreshButtonsActivity();
@@ -415,6 +445,16 @@ public class ScheduleInfoWindow extends Activity {
 	
 	protected void performSetValueDialogCancelPressed() {
 		setValueDialogShowing=false;
+	}
+	
+	private void performDeleteCourseDialogOkPressed() {
+		deleteCourse(pillNameTitle);
+		finish();
+	}
+	
+	private void deleteCourse(String courseName) {
+		BlisterDatabase db = BlisterDatabase.openDatabase(this);
+		db.getCourseTable().delete(courseName);
 	}
 
 	/* Returns String typed by user */

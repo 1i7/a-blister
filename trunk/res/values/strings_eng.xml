@@ -15,7 +15,7 @@
 	
 	<string name="set_value_dialog_title">Set value</string>	
 	<string name="list_is_empty_message">List is empty</string>
-	<string name="clear_item_dialog_title">All data will be lost. Confirm?</string>
+	<string name="clear_all_dialog_title">All data will be lost. Confirm?</string><string name="clear_day_dialog_title">All schedules on selected day will be deleted. Confirm?</string>
 	<string name="name_not_typed_dialog_message">Please, type the name of the course</string>
 	<string name="data_not_typed_dialog_message">Please, type the number of pills or duration
 		of course</string>
@@ -80,4 +80,5 @@
 <string name="delete_course_text">Delete course</string>
 <string name="day_text">day</string>
 <string name="days_text">days</string>
+<string name="delete_course_dialog_title">Current course will be deleted. Confirm?</string>
 </resources>

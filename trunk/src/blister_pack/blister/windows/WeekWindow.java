@@ -27,9 +27,10 @@ import blister_pack.blister.database.tables.PillNotification;
 
 public class WeekWindow extends ListWindow {
 
-	private static final int CLEAR_ALL_ITEM_DIALOG = 0;
-	private static final int DELETE_ITEM_DIALOG = 1;
+	private static final int CLEAR_ALL_DIALOG = 0;
+	private static final int CLEAR_DAY_DIALOG = 1;
 	private static final int TEMPORARY_UNAVAILABLE_DIALOG = 2;
+	private static final int DELETE_COURSE_DIALOG = 3;
 
 	private static final String TIME_FORMAT = "HH:mm";
 	private static final SimpleDateFormat timeFormat = new SimpleDateFormat(
@@ -38,9 +39,9 @@ public class WeekWindow extends ListWindow {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
-		case CLEAR_ALL_ITEM_DIALOG:
+		case CLEAR_ALL_DIALOG:
 			return new AlertDialog.Builder(WeekWindow.this)
-				.setTitle(R.string.clear_item_dialog_title)
+				.setTitle(R.string.clear_all_dialog_title)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -52,13 +53,27 @@ public class WeekWindow extends ListWindow {
 								int whichButton) {
 						}
 				}).create();
-		case DELETE_ITEM_DIALOG:
+		case CLEAR_DAY_DIALOG:
 			return new AlertDialog.Builder(WeekWindow.this)
-				.setTitle(R.string.clear_item_dialog_title)
+				.setTitle(R.string.clear_day_dialog_title)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
 						performClearDialogOkPressed(selectedItemPosition);
+					}
+				}).setNegativeButton(R.string.cancel_text,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+						}
+				}).create();
+		case DELETE_COURSE_DIALOG:
+			return new AlertDialog.Builder(WeekWindow.this)
+				.setTitle(R.string.delete_course_dialog_title)
+				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+						performDeleteCourseDialogOkPressed();
 					}
 				}).setNegativeButton(R.string.cancel_text,
 					new DialogInterface.OnClickListener() {
@@ -133,9 +148,11 @@ public class WeekWindow extends ListWindow {
 			showDialog(TEMPORARY_UNAVAILABLE_DIALOG);
 			return true;
 		case R.id.weekClearItem:
-			showDialog(CLEAR_ALL_ITEM_DIALOG);
+			showDialog(CLEAR_ALL_DIALOG);
+			return true;
 		case R.id.weekDeleteItem:
-			// action
+			showDialog(DELETE_COURSE_DIALOG);
+			return true;
 		default:
 			return false;
 		}
@@ -174,7 +191,7 @@ public class WeekWindow extends ListWindow {
 		selectedItemPosition = info.position;
 		switch (item.getItemId()) {
 		case R.id.weekContextDeleteItem:
-			showDialog(DELETE_ITEM_DIALOG);
+			showDialog(CLEAR_DAY_DIALOG);
 			return true;
 		case R.id.weekContextEditItem:
 			Intent intent = new Intent(WeekWindow.this, SetTimeWindow.class)
@@ -228,6 +245,16 @@ public class WeekWindow extends ListWindow {
 	private void performClearDialogOkPressed(int position) {
 		clearItem(position);
 		refreshListActivity();
+	}
+	
+	private void performDeleteCourseDialogOkPressed() {
+		deleteCourse(pillNameTitle);
+		finish();
+	}
+	
+	private void deleteCourse(String courseName) {
+		BlisterDatabase db = BlisterDatabase.openDatabase(this);
+		db.getCourseTable().delete(courseName);
 	}
 
 	/* generates info string using data from database */

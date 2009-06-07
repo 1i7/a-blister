@@ -30,7 +30,7 @@ import java.util.Calendar;
 
 public class MainWindow extends ListWindow {
 
-	private static final int CLEAR_ALL_ITEM_DIALOG = 0;
+	private static final int CLEAR_ALL_DIALOG = 0;
 	private static final int DELETE_ITEM_DIALOG = 1;
 	
 	Button addButton1;
@@ -39,9 +39,9 @@ public class MainWindow extends ListWindow {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
-		case CLEAR_ALL_ITEM_DIALOG:
+		case CLEAR_ALL_DIALOG:
 			return new AlertDialog.Builder(MainWindow.this).setTitle(
-					R.string.clear_item_dialog_title).setPositiveButton(
+					R.string.clear_all_dialog_title).setPositiveButton(
 					R.string.ok_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,
 								int whichButton) {
@@ -137,7 +137,7 @@ public class MainWindow extends ListWindow {
 			performAddAction();
 			return true;
 		case R.id.mainClearItem:
-			showDialog(CLEAR_ALL_ITEM_DIALOG);
+			showDialog(CLEAR_ALL_DIALOG);
 		default:
 			return false;
 		}

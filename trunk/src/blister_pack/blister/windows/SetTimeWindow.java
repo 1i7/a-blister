@@ -36,7 +36,7 @@ import blister_pack.blister.database.tables.PillNotification;
 public class SetTimeWindow extends ListWindow {
 	
 	private static final int ADD_DIRECT_ITEM_DIALOG = 0,
-							 CLEAR_ITEM_DIALOG = 1,
+							 DELETE_ALL_DIALOG = 1,
 							 DELETE_ITEM_DIALOG = 2,
 							 SET_VALUE_DIALOG = 3;
 	
@@ -176,19 +176,6 @@ public class SetTimeWindow extends ListWindow {
 			})
 			.create();
 			return dialog;
-		case CLEAR_ITEM_DIALOG:
-			return new AlertDialog.Builder(SetTimeWindow.this)
-				.setTitle(R.string.clear_item_dialog_title)
-				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int whichButton) {
-						performClearDialogOkPressed();
-					}
-				}).setNegativeButton(R.string.cancel_text, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int whichButton) {
-					}
-				}).create();
 		case DELETE_ITEM_DIALOG:
 			return new AlertDialog.Builder(SetTimeWindow.this)
 				.setTitle(R.string.delete_item_dialog_title)
@@ -196,6 +183,19 @@ public class SetTimeWindow extends ListWindow {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
 						performDeleteDialogOkPressed(selectedItemPosition);
+					}
+				}).setNegativeButton(R.string.cancel_text, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+					}
+				}).create();
+		case DELETE_ALL_DIALOG:
+			return new AlertDialog.Builder(SetTimeWindow.this)
+				.setTitle(R.string.clear_all_dialog_title)
+				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+						performClearDialogOkPressed();
 					}
 				}).setNegativeButton(R.string.cancel_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
@@ -267,8 +267,8 @@ public class SetTimeWindow extends ListWindow {
 		case R.id.setTimeAddRelativeItem:
 			performAddTimeSeriesAction();
 			return true;
-		case R.id.setTimeClearItem:
-			showDialog(CLEAR_ITEM_DIALOG);
+		case R.id.setTimeDeleteAllItem:
+			showDialog(DELETE_ALL_DIALOG);
 			return true;
 		default:
 			return false;
