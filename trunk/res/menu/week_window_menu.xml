@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@+id/weekAddItem" android:icon="@drawable/ic_menu_add" android:title="@string/add_text"></item><item android:id="@+id/weekClearItem" android:icon="@drawable/ic_menu_delete" android:title="@string/clear_all_text"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@+id/weekAddItem" android:icon="@drawable/ic_menu_add" android:title="@string/add_text"></item><item android:id="@+id/weekClearItem" android:icon="@drawable/ic_menu_delete" android:title="@string/clear_timetable_text"></item>
 
+<item android:id="@+id/weekDeleteItem" android:icon="@drawable/ic_menu_delete" android:title="@string/delete_course_text"></item>
 </menu>

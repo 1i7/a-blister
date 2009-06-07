@@ -17,6 +17,7 @@ public class EditScheduleWindow extends TabActivity{
         Log.v("eldar","EditScheduleWindow: onCreate");
         Intent intent = getIntent();
 		pillNameTitle = intent.getStringExtra("pillName");
+		
 		Log.v("eldar","EditScheduleWindow: pillName "+pillNameTitle);
 		
 		super.onCreate(savedInstanceState);

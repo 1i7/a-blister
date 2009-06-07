@@ -54,7 +54,7 @@ public class WeekWindow extends ListWindow {
 				}).create();
 		case DELETE_ITEM_DIALOG:
 			return new AlertDialog.Builder(WeekWindow.this)
-				.setTitle(R.string.delete_item_dialog_title)
+				.setTitle(R.string.clear_item_dialog_title)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -134,6 +134,8 @@ public class WeekWindow extends ListWindow {
 			return true;
 		case R.id.weekClearItem:
 			showDialog(CLEAR_ALL_ITEM_DIALOG);
+		case R.id.weekDeleteItem:
+			// action
 		default:
 			return false;
 		}

@@ -11,8 +11,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -21,9 +24,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
 import blister_pack.blister.R;
 import blister_pack.blister.database.BlisterDatabase;
 import blister_pack.blister.database.tables.Course;
@@ -58,7 +61,15 @@ public class ScheduleInfoWindow extends Activity {
 	Picker picker;
 	TextView valueText;
 	TextView valueNameText;
+	TextView valueDimText;
 	Spinner extraParamSpinner;
+	
+	Menu optionsMenu;
+	
+	String initialName;
+	String initialValue;
+	int initialParameter;
+	boolean isDataChanged;
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -139,11 +150,13 @@ public class ScheduleInfoWindow extends Activity {
 
 		((TextView)findViewById(R.id.editScheduleText)).setText(R.string.edit_schedule_window_title);
 		nameEditText = (EditText) findViewById(R.id.editScheduleEditName);
+		nameEditText.setOnKeyListener(editTextListener);
 		okButton = (Button) findViewById(R.id.editScheduleOKButton);
 		cancelButton = (Button) findViewById(R.id.editScheduleCancelButton);
 		setButton = (Button)findViewById(R.id.editScheduleSetButton);
 		valueText = (TextView)findViewById(R.id.editScheduleValueText);
 		valueNameText = (TextView)findViewById(R.id.editScheduleValueTitle);
+		valueDimText = (TextView)findViewById(R.id.editScheduleValueDimText);
 		extraParamSpinner = (Spinner) findViewById(R.id.editScheduleSpinner);
 		LayoutInflater factory = LayoutInflater.from(this);
 		setValueDialogLayout= (LinearLayout)factory.inflate(R.layout.set_value_layout, null);
@@ -153,6 +166,7 @@ public class ScheduleInfoWindow extends Activity {
 				android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		extraParamSpinner.setAdapter(adapter);
+		extraParamSpinner.setOnItemSelectedListener(spinnerListener);
 
 		if (newScheduleState) {
 			cancelButton.setVisibility(View.GONE);
@@ -161,8 +175,8 @@ public class ScheduleInfoWindow extends Activity {
 			findViewById(R.id.editScheduleTopPanel).setVisibility(View.GONE);
 			okButton.setText(R.string.save_text);
 			cancelButton.setText(R.string.discard_text);
-		}		
-
+		}
+		
 		setButtonListeners();
 		
 		if (bundle!=null) {
@@ -174,9 +188,62 @@ public class ScheduleInfoWindow extends Activity {
 
 		Log.v("eldar", "ScheduleInfoWindow: created");
 	}
+	
+	private EditText.OnKeyListener editTextListener = 
+		new EditText.OnKeyListener() {
+		public boolean onKey(View v, int keyCode, KeyEvent event) {
+			refreshButtonsActivity();
+			return false;
+		}
+	};
+	
+	private Spinner.OnItemSelectedListener spinnerListener = 
+		  new Spinner.OnItemSelectedListener() { 
+		    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+		    	String parameter = extraParamSpinner.getSelectedItem().toString();
+		    	if (parameter.equals(getString(R.string.new_schedule_duration_text))) {
+		    		valueNameText.setText(R.string.duration);
+		    		valueDimText.setVisibility(View.VISIBLE);
+		    		refreshDimText();
+		    	} else if (parameter.equals(getString(R.string.new_schedule_pills_text))) {
+		    				valueNameText.setText(R.string.number);
+		    				valueDimText.setVisibility(View.GONE);
+						}
+		    	refreshButtonsActivity();
+		    }
+		    public void onNothingSelected(AdapterView<?> parent) { }              
+		};
+		
+	private void refreshDimText() {
+		if (getDurationOfCourse()==1) {
+			valueDimText.setText(R.string.day_text);
+		} else {
+			valueDimText.setText(R.string.days_text);
+		}
+	}
+	
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		optionsMenu = menu;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.schedule_info_window_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.infoDeleteItem:
+			// action
+		default:
+			return false;
+		}
+	}
 
 	@Override
 	protected void onResume() {
+		Log.v("eldar","hi");
 		super.onResume();
 		if (pillNameTitle == null) {
 			if (!newScheduleState) {
@@ -196,6 +263,13 @@ public class ScheduleInfoWindow extends Activity {
 			}
 			nameEditText.setText(pillNameTitle);
 		}
+		
+		initialName = nameEditText.getText().toString();
+		initialParameter = extraParamSpinner.getSelectedItemPosition();
+		initialValue = valueText.getText().toString();
+		
+		refreshButtonsActivity();
+		refreshDimText();
 		
 	}
 	
@@ -249,17 +323,26 @@ public class ScheduleInfoWindow extends Activity {
 			}
 		});
 		
-/*		extraParamSpinner.setOnClickListener(new OnClickListener() {
+		nameEditText.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				if (extraParamSpinner.getSelectedItem().equals(
-						getString(R.string.new_schedule_duration_text))) {
-					valueNameText.setText(R.string.duration);
-				} else if (extraParamSpinner.getSelectedItem().equals(
-						getString(R.string.new_schedule_pills_text))) {
-					valueNameText.setText(R.string.number);
-				}
+				refreshButtonsActivity();
 			}
-		}); */
+		});
+	}
+	
+	private void refreshButtonsActivity() {
+		int parameter = extraParamSpinner.getSelectedItemPosition();
+		String value = valueText.getText().toString();
+		String name = nameEditText.getText().toString();
+		
+		if ((!value.equals(initialValue))||(parameter!=initialParameter)||
+				(!name.equals(initialName))) {
+			okButton.setEnabled(true);
+			cancelButton.setEnabled(true);
+		} else {
+			okButton.setEnabled(false);
+			cancelButton.setEnabled(false);
+		}
 	}
 
 	/*
@@ -274,8 +357,7 @@ public class ScheduleInfoWindow extends Activity {
 			if (insertOrUpdate() == PERFORM_ACTION_SUCCESSFUL) {
 				if (newScheduleState) {
 					Intent intent = new Intent(ScheduleInfoWindow.this,
-							WeekWindow.class)
-						.putExtra("newScheduleState", newScheduleState)
+							EditScheduleWindow.class)
 						.putExtra("pillName", getPillName());
 					startActivity(intent);
 					finish();
@@ -302,7 +384,11 @@ public class ScheduleInfoWindow extends Activity {
 	}
 	
 	private void performCancelButtonClick() {
-		// some action
+		extraParamSpinner.setSelection(initialParameter);
+		valueText.setText(initialValue);
+		nameEditText.setText(initialName);
+		refreshButtonsActivity();
+		refreshDimText();
 	}
 
 	protected void performSetValueButtonClick() {
@@ -323,6 +409,8 @@ public class ScheduleInfoWindow extends Activity {
 			valueText.setText(parseIntToString(value));
 		else
 			valueText.setText(R.string.number_preset);
+		refreshButtonsActivity();
+		refreshDimText();
 	}
 	
 	protected void performSetValueDialogCancelPressed() {
