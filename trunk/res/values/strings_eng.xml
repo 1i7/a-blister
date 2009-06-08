@@ -86,4 +86,9 @@
 <string name="confirmed_text">Confirmed</string>
 <string name="ignored_text">Ignored</string>
 <string name="pills_taken_text">Pills taken</string>
+<string name="add_timetable_time_text">Time</string>
+<string name="add_timetable_days_text">Days</string>
+<string name="add_timetable_number_of_pills_text">Number of pills</string>
+<string name="add_timetable_no_data_message">Please, type number of pills and time</string>
+<string name="about_text">About</string>
 </resources>

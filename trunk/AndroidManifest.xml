@@ -45,9 +45,15 @@
 		<activity android:name=".windows.ConfirmActivity"
 			android:label="Blister" android:theme="@android:style/Theme.Dialog" />
 		<service android:name="NotificationService" />
-		<activity android:label="MissedNotifications" android:name=".windows.MissedNotificationsWindow"></activity>
+		<activity android:label="Blister" android:name=".windows.MissedNotificationsWindow"></activity>
 		<activity android:label="@string/add_time_series_text"
 			android:name=".windows.AddRelativeTimeWindow" android:theme="@android:style/Theme.Dialog"></activity>
+		<activity android:name=".windows.AddTimetableWindow"
+			 android:label="Blister">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+			</intent-filter>
+		</activity>
 	</application>
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>

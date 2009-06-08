@@ -138,6 +138,10 @@ public class MainWindow extends ListWindow {
 			return true;
 		case R.id.mainClearItem:
 			showDialog(CLEAR_ALL_DIALOG);
+			return true;
+		case R.id.mainAboutItem:
+			// TODO
+			return true;
 		default:
 			return false;
 		}

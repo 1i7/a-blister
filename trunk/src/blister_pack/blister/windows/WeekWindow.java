@@ -145,7 +145,9 @@ public class WeekWindow extends ListWindow {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.weekAddItem:
-			showDialog(TEMPORARY_UNAVAILABLE_DIALOG);
+			Intent intent = new Intent(WeekWindow.this, AddTimetableWindow.class)
+				.putExtra("pillName", pillNameTitle);
+			startActivity(intent);
 			return true;
 		case R.id.weekClearItem:
 			showDialog(CLEAR_ALL_DIALOG);
