@@ -177,8 +177,14 @@ public class NotificationService extends Service {
 	private void showNotification(String courseName, Date time) {
 		final String notificationTitle = getString(R.string.notification_title);
 		final String notificationMessage = getString(R.string.notification_message);
-		// inserting into OccuredNotification table
+		
 		BlisterDatabase db = BlisterDatabase.openDatabase(this);
+		// checking whether course has been already finished or not
+		Course course = db.getCourseTable().select(courseName);
+		if ((course.pillsRemained <= 0) && (course.duration <= 0)) {
+			return;
+		}
+		// inserting into OccuredNotification table
 		db.getOccuredNotificationTable().insert(courseName, time);
 
 		notification = new Notification(R.drawable.pills_man, notificationMessage, time.getTime());
@@ -201,6 +207,7 @@ public class NotificationService extends Service {
 		final String notificationTitle = getString(R.string.missed_notification_title);
 		final String notificationMessage = getString(R.string.missed_notification_message);
 		
+		BlisterDatabase db = BlisterDatabase.openDatabase(this);
 		notification = new Notification(R.drawable.pills_man, notificationMessage, Calendar.getInstance().getTimeInMillis());
 		Intent confirmIntent = new Intent(this, MissedNotificationsWindow.class);
 		confirmIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

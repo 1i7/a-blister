@@ -23,7 +23,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import blister_pack.blister.MissedNotification;
 import blister_pack.blister.R;

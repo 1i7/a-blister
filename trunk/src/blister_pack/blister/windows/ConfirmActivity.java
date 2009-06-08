@@ -180,7 +180,8 @@ public class ConfirmActivity extends Activity
 	private void updateNumberOfPillsInDatabase() {
 		BlisterDatabase db = BlisterDatabase.openDatabase(this);
 		if ((pillsToTake>0) && (pillsRemained>0)) {
-			db.getCourseTable().updatePills(courseName, pillsRemained-pillsToTake);
+			db.getCourseTable().updatePills(courseName, pillsRemained - pillsToTake);
+			pillsRemained = pillsRemained - pillsToTake;
 		}	
 	}
 }
