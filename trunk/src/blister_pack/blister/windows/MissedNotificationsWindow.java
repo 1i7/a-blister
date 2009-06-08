@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.NotificationManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
@@ -17,8 +20,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import blister_pack.blister.MissedNotification;
 import blister_pack.blister.R;
@@ -31,10 +36,46 @@ public class MissedNotificationsWindow extends ListWindow{
 	public static final int CONFIRM_REQUEST_CODE=0;
 	public static final String TIME_FORMAT="HH:mm dd.MM.yyyy";
 	
+	public static final int CONFIRM_ALL_DIALOG = 0,
+							IGNORE_ALL_DIALOG = 1;
+	
 	protected static SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
 	
 	ArrayList<MissedNotification> missedNotifications;
 	int notificationID;
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case CONFIRM_ALL_DIALOG:
+			return new AlertDialog.Builder(MissedNotificationsWindow.this)
+				.setTitle(R.string.confirm_all_dialog_title)
+				.setPositiveButton(R.string.ok_text,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+								performConfirmAllDialogOkPressed();
+							}
+					}).setNegativeButton(R.string.cancel_text,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+							}
+					}).create();
+		case IGNORE_ALL_DIALOG:
+			return new AlertDialog.Builder(MissedNotificationsWindow.this)
+			.setTitle(R.string.ignore_all_dialog_title)
+			.setPositiveButton(R.string.ok_text,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							performIgnoreAllDialogOkPressed();
+						}
+				}).setNegativeButton(R.string.cancel_text,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+						}
+				}).create();
+		}
+		return null;
+	}
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -53,6 +94,9 @@ public class MissedNotificationsWindow extends ListWindow{
 		findViewById(R.id.ListWindowBottomButtonPanel).setVisibility(View.GONE);
 		((TextView)findViewById(R.id.ListWindowText)).setText(R.string.missed_notifications_window_title);
 		registerForContextMenu(dataList);
+		
+		((Button)findViewById(R.id.ListWindowEmptyListAddButton1)).setVisibility(View.GONE);
+		((Button)findViewById(R.id.ListWindowEmptyListAddButton2)).setVisibility(View.GONE);
 
 		Log.v("eldar", "MissedNotificationsWindow: created");
 	}
@@ -110,10 +154,10 @@ public class MissedNotificationsWindow extends ListWindow{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.missedConfirmAll:
-			performConfirmAllItemSelected();
+			showDialog(CONFIRM_ALL_DIALOG);
 			return true;
 		case R.id.missedIgnoreAll:
-			performIgnoreAllItemSelected();
+			showDialog(IGNORE_ALL_DIALOG);
 		default:
 			return false;
 		}
@@ -177,6 +221,11 @@ public class MissedNotificationsWindow extends ListWindow{
 	private void performIgnoreItemSelected(int selectedItemPosition) {
 		removeNotification(selectedItemPosition);
 		refreshListActivity();
+		// TODO
+		String ignoreToastMessage = "ignore_message";
+		Toast mToast = Toast.makeText(MissedNotificationsWindow.this, ignoreToastMessage,
+                Toast.LENGTH_LONG);
+        mToast.show();
 	}
 
 	private void performConfirmItemSelected(int selectedItemPosition) {
@@ -186,9 +235,14 @@ public class MissedNotificationsWindow extends ListWindow{
 		updateNumberOfPillsInDatabase(course.courseName, pillsToTake, course.pillsRemained);
 		removeNotification(selectedItemPosition);
 		refreshListActivity();
+		// TODO
+		String confirmToastMessage = "confirm_message";
+		Toast mToast = Toast.makeText(MissedNotificationsWindow.this, confirmToastMessage,
+                Toast.LENGTH_LONG);
+        mToast.show();
 	}
 
-	private void performIgnoreAllItemSelected() {
+	private void performIgnoreAllDialogOkPressed() {
 		BlisterDatabase db = BlisterDatabase.openDatabase(this);
 		for (MissedNotification notification : missedNotifications) {
 			db.getOccuredNotificationTable().delete(notification);
@@ -198,7 +252,7 @@ public class MissedNotificationsWindow extends ListWindow{
 		refreshListActivity();
 	}
 
-	private void performConfirmAllItemSelected() {
+	private void performConfirmAllDialogOkPressed() {
 		BlisterDatabase db = BlisterDatabase.openDatabase(this);
 		for (MissedNotification notification : missedNotifications) {
 			db.getOccuredNotificationTable().delete(notification);

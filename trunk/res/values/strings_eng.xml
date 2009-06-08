@@ -48,7 +48,7 @@
 	<string name="discard_text">Discard</string>
 	<string name="pills_remained_text">Pills remained</string>
 	<string name="days_remained_text">Days remained</string>
-	<string name="course_ended_text">Course ended</string>
+	<string name="course_ended_text">Course finished</string>
 	<string name="add_time_text">Add time</string>
 	<string name="add_time_series_text">Add time series</string>
 	<string name="delete_all_text">Delete all</string>
@@ -81,4 +81,6 @@
 <string name="day_text">day</string>
 <string name="days_text">days</string>
 <string name="delete_course_dialog_title">Current course will be deleted. Confirm?</string>
+<string name="confirm_all_dialog_title">All pills will be signed as taken. Confirm all?</string>
+<string name="ignore_all_dialog_title">All pills will be signed as not taken. They will remain in current course. Ignore all?  </string>
 </resources>

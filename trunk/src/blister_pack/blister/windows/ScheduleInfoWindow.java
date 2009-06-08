@@ -400,8 +400,7 @@ public class ScheduleInfoWindow extends Activity {
 						.putExtra("rebuildState", true);
 					startActivity(intent);
 					finish();
-					Toast mToast;
-					mToast = Toast.makeText(ScheduleInfoWindow.this, R.string.saved_message,
+					Toast mToast = Toast.makeText(ScheduleInfoWindow.this, R.string.saved_message,
 		                    Toast.LENGTH_LONG);
 		            mToast.show();
 				}

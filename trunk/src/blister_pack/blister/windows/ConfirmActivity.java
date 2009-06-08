@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import blister_pack.blister.R;
 import blister_pack.blister.database.BlisterDatabase;
 import blister_pack.blister.database.tables.Course;
@@ -73,12 +74,24 @@ public class ConfirmActivity extends Activity
 		cancelNotification();
 		deleteNotificationFromDatabase(courseName, time); 
 		updateNumberOfPillsInDatabase();
+		// TODO
+		String confirmToastMessage = "confirm_message";
+		Toast mToast = Toast.makeText(this, confirmToastMessage,
+                Toast.LENGTH_LONG);
+        mToast.show();
+        
 		finish();
 	}
 	
 	private void performIgnoreButtonClick() {
 		cancelNotification();
 		deleteNotificationFromDatabase(courseName, time);
+		// TODO
+		String ignoreToastMessage = "ignore_message";
+		Toast mToast = Toast.makeText(this, ignoreToastMessage,
+                Toast.LENGTH_LONG);
+        mToast.show();
+        
 		finish();
 	}
 	
