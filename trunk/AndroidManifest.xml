@@ -36,12 +36,6 @@
 				<action android:name="android.intent.action.MAIN" />
 			</intent-filter>
 		</activity>
-		<!--
-			<activity android:name="MainActivity" android:label="Blister">
-			<intent-filter> <action android:name="android.intent.action.MAIN"/>
-			<category android:name="android.intent.category.LAUNCHER"/>
-			</intent-filter> </activity>
-		-->
 		<activity android:name=".windows.ConfirmActivity"
 			android:label="Blister" android:theme="@android:style/Theme.Dialog" />
 		<service android:name="NotificationService" />
