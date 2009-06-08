@@ -206,8 +206,7 @@ public class NotificationService extends Service {
 	private void showMissedNotification(ArrayList<MissedNotification> missedNotifications) {
 		final String notificationTitle = getString(R.string.missed_notification_title);
 		final String notificationMessage = getString(R.string.missed_notification_message);
-		
-		BlisterDatabase db = BlisterDatabase.openDatabase(this);
+
 		notification = new Notification(R.drawable.pills_man, notificationMessage, Calendar.getInstance().getTimeInMillis());
 		Intent confirmIntent = new Intent(this, MissedNotificationsWindow.class);
 		confirmIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
