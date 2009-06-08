@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="notification_message">Take your pill! </string>
+	<string name="notification_title">Take your pill! </string>
+	<string name="missed_notification_message">You missed notification(s)</string>
+	<string name="missed_notification_title">You missed notification(s)</string>
+
+	<string name="Monday">Monday</string>
+	<string name="Tuesday">Tuesday</string>
+	<string name="Wednesday">Wednesday</string>
+	<string name="Thursday">Thursday</string>
+	<string name="Friday">Friday</string>
+	<string name="Saturday">Saturday</string>
+	<string name="Sunday">Sunday</string>
+	
+	<string name="set_value_dialog_title">Set value</string>	
+	<string name="list_is_empty_message">List is empty</string>
+	<string name="clear_all_dialog_title">All data will be lost. Confirm?</string><string name="clear_day_dialog_title">All schedules on selected day will be deleted. Confirm?</string>
+	<string name="name_not_typed_dialog_message">Please, type the name of the course</string>
+	<string name="data_not_typed_dialog_message">Please, type the number of pills or duration
+		of course</string>
+	<string name="incorrect_data_dialog_message">Numeric fields should have an integer value.
+		Please, retype the necessary data </string>
+	<string name="name_already_exists_dialog_message">Sorry, this name already exists</string>
+	<string name="delete_item_dialog_title">Selected item will be deleted. Confirm?</string>
+	<string name="temporarily_unavailable_message">Sorry, this option is temporarily unavailable</string>
+
+	<string name="new_schedule_name_text">Name</string>
+	<string name="new_schedule_extra_params_text">Course parameters</string>
+	<string name="new_schedule_value_text">Value</string>
+	<string name="new_schedule_pills_text">Number of pills</string>
+	<string name="new_schedule_duration_text">Duration of course</string>
+	<string name="ok_text">OK</string>
+	<string name="cancel_text">Cancel</string>
+	<string name="delete_text">Delete</string>
+	<string name="edit_text">Edit</string>
+	<string name="add_text">Add</string>
+	<string name="del_text">Del</string>
+	<string name="clear_text">Clear</string>
+	<string name="add_time">Add time</string>
+	<string name="every_text">Every</string>
+	<string name="from_text">from</string>
+	<string name="to_text">to</string>
+	<string name="close_text">Close</string>
+	<string name="info_text">info</string>
+	<string name="timetable_text">timetable</string>
+	<string name="save_text">Save</string>
+	<string name="discard_text">Discard</string>
+	<string name="pills_remained_text">Pills remained</string>
+	<string name="days_remained_text">Days remained</string>
+	<string name="course_ended_text">Course finished</string>
+	<string name="add_time_text">Add time</string>
+	<string name="add_time_series_text">Add time series</string>
+	<string name="delete_all_text">Delete all</string>
+	<string name="confirm_all_text">Confirm all</string>
+	<string name="confirm_text">Confirm</string>
+	<string name="ignore_all_text">Ignore all</string>
+	<string name="ignore_text">Ignore</string>
+	<string name="time_text">Time</string>
+	<string name="pills_to_take_text">Pills to take</string>
+	<string name="set_number_of_pills_text">Set number of pills</string>
+	<string name="clear_all_text">Clear all</string>
+
+	<string name="schedule_params_spinner_tag">Choose parameter</string>
+	<string name="main_window_title">Your pill courses</string>
+	<string name="edit_schedule_window_title">New course</string>
+	<string name="times_list_is_empty">Timetable is empty</string>
+	<string name="schedules_list_is_empty">Your pill course list is empty</string>
+	<string name="missed_notifications_window_title">Missed notifications</string>
+	<string name="missed_notifications_list_is_empty">No missed notifications</string>
+	
+	<string name="time_preset">-- : --</string>
+	<string name="number_preset">---</string>
+
+<string name="set_button">Set</string>
+<string name="duration">Duration:</string>
+<string name="number">Pills:</string>
+<string name="saved_message">Saved successfully</string>
+<string name="clear_timetable_text">Clear timetable</string>
+<string name="delete_course_text">Delete course</string>
+<string name="day_text">day</string>
+<string name="days_text">days</string>
+<string name="delete_course_dialog_title">Current course will be deleted. Confirm?</string>
+<string name="confirm_all_dialog_title">All pills will be signed as taken. Confirm all?</string>
+<string name="ignore_all_dialog_title">All pills will be signed as not taken. They will remain in current course. Ignore all?  </string>
+<string name="confirmed_text">Confirmed</string>
+<string name="ignored_text">Ignored</string>
+<string name="pills_taken_text">Pills taken</string>
+<string name="add_timetable_time_text">Time</string>
+<string name="add_timetable_days_text">Days</string>
+<string name="add_timetable_number_of_pills_text">Number of pills</string>
+<string name="add_timetable_no_data_message">Please, type number of pills and time</string>
+<string name="about_text">About</string>
+</resources>
