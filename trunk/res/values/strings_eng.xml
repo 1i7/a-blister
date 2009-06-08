@@ -83,4 +83,7 @@
 <string name="delete_course_dialog_title">Current course will be deleted. Confirm?</string>
 <string name="confirm_all_dialog_title">All pills will be signed as taken. Confirm all?</string>
 <string name="ignore_all_dialog_title">All pills will be signed as not taken. They will remain in current course. Ignore all?  </string>
+<string name="confirmed_text">Confirmed</string>
+<string name="ignored_text">Ignored</string>
+<string name="pills_taken_text">Pills taken</string>
 </resources>

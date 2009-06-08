@@ -221,11 +221,6 @@ public class MissedNotificationsWindow extends ListWindow{
 	private void performIgnoreItemSelected(int selectedItemPosition) {
 		removeNotification(selectedItemPosition);
 		refreshListActivity();
-		// TODO
-		String ignoreToastMessage = "ignore_message";
-		Toast mToast = Toast.makeText(MissedNotificationsWindow.this, ignoreToastMessage,
-                Toast.LENGTH_LONG);
-        mToast.show();
 	}
 
 	private void performConfirmItemSelected(int selectedItemPosition) {
@@ -235,11 +230,6 @@ public class MissedNotificationsWindow extends ListWindow{
 		updateNumberOfPillsInDatabase(course.courseName, pillsToTake, course.pillsRemained);
 		removeNotification(selectedItemPosition);
 		refreshListActivity();
-		// TODO
-		String confirmToastMessage = "confirm_message";
-		Toast mToast = Toast.makeText(MissedNotificationsWindow.this, confirmToastMessage,
-                Toast.LENGTH_LONG);
-        mToast.show();
 	}
 
 	private void performIgnoreAllDialogOkPressed() {

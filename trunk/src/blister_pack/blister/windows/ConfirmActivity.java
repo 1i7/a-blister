@@ -74,8 +74,7 @@ public class ConfirmActivity extends Activity
 		cancelNotification();
 		deleteNotificationFromDatabase(courseName, time); 
 		updateNumberOfPillsInDatabase();
-		// TODO
-		String confirmToastMessage = "confirm_message";
+		String confirmToastMessage = getToastMessage(true);
 		Toast mToast = Toast.makeText(this, confirmToastMessage,
                 Toast.LENGTH_LONG);
         mToast.show();
@@ -86,13 +85,35 @@ public class ConfirmActivity extends Activity
 	private void performIgnoreButtonClick() {
 		cancelNotification();
 		deleteNotificationFromDatabase(courseName, time);
-		// TODO
-		String ignoreToastMessage = "ignore_message";
+		String ignoreToastMessage = getToastMessage(false);
 		Toast mToast = Toast.makeText(this, ignoreToastMessage,
                 Toast.LENGTH_LONG);
         mToast.show();
         
 		finish();
+	}
+	
+	private String getToastMessage(boolean confirmed) {
+		String message;
+		if (confirmed) {
+			message = getString(R.string.confirmed_text) + "\n";
+		} else {
+			message = getString(R.string.ignored_text) + "\n";
+		}
+		message += courseName + ": " +fullTimeFormat.format(time) + "\n";
+		if (confirmed) {
+			if (pillsToTake > 0) {
+				message += getString(R.string.pills_taken_text) + ": " + pillsToTake + "\n";
+			}
+		}
+		if (pillsRemained>0) {
+			message += getString(R.string.pills_remained_text) + ": " + pillsRemained;
+		} else if (daysRemained>0) {
+			message += getString(R.string.days_remained_text) + ": " + daysRemained;
+		} else {
+			message += "<" + getString(R.string.course_ended_text) + ">";
+		}
+		return message;
 	}
 	
 	private String getName() {
