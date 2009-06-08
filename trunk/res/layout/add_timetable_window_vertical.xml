@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/addTimetableLayout" android:layout_width="fill_parent" android:orientation="vertical" android:layout_height="fill_parent"><LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/addTimetableParamsLayout" android:orientation="horizontal"><LinearLayout android:layout_height="wrap_content" android:id="@+id/addTimetableTimeLayout" android:orientation="vertical" android:layout_width="fill_parent" android:layout_weight="1"><TextView android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_width="fill_parent" android:textStyle="bold" android:gravity="center_vertical" android:textColor="#ffffff" android:background="@android:drawable/title_bar" android:id="@+id/addTimetableTimeText" android:text="@string/add_timetable_time_text"></TextView><LinearLayout android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_width="fill_parent" android:orientation="horizontal" android:minHeight="50dip" android:id="@+id/addTimetableTimeValueLayout">
+
+						
+
+
+						
+					<LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" android:layout_weight="1" android:orientation="vertical" android:layout_width="fill_parent" android:id="@+id/addTimetableTimeSubLayout"><TextView android:layout_height="wrap_content" android:layout_gravity="center" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:paddingLeft="6dip" android:paddingRight="6dip" android:text="@string/time_preset" android:id="@+id/addTimetableTimeValueText"></TextView>
+</LinearLayout><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/set_button" android:minWidth="100dip" android:layout_marginTop="5dip" android:id="@+id/addTimetableTimeSetButton"></Button>
+
+
+
+</LinearLayout>
+
+</LinearLayout><LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:minWidth="1dip" android:background="@color/white" android:id="@+id/addTimetableDivider"></LinearLayout><LinearLayout android:layout_height="wrap_content" android:id="@+id/addTimetableNumberLayout" android:orientation="vertical" android:layout_width="fill_parent" android:layout_weight="1"><TextView android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_width="fill_parent" android:textStyle="bold" android:gravity="center_vertical" android:textColor="#ffffff" android:background="@android:drawable/title_bar" android:id="@+id/addTimetableNumberText" android:text="@string/add_timetable_number_of_pills_text"></TextView><LinearLayout android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_width="fill_parent" android:orientation="horizontal" android:minHeight="50dip" android:id="@+id/addTimetableNumberValueLayout">
+
+						
+
+
+						
+					<LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" android:layout_weight="1" android:orientation="vertical" android:layout_width="fill_parent" android:id="@+id/addTimetableNumberSubLayout"><TextView android:layout_height="wrap_content" android:layout_gravity="center" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:paddingLeft="6dip" android:paddingRight="6dip" android:id="@+id/addTimetableNumberValueText" android:text="@string/number_preset"></TextView>
+</LinearLayout><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/set_button" android:minWidth="100dip" android:layout_marginTop="5dip" android:id="@+id/addTimetableNumberSetButton"></Button>
+
+
+</LinearLayout></LinearLayout>
+</LinearLayout><TextView android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_width="fill_parent"
+					android:textStyle="bold" android:gravity="center_vertical" android:textColor="#ffffff" android:background="@android:drawable/title_bar" android:text="@string/add_timetable_days_text" android:id="@+id/addTimetableDaysText"></TextView><ListView android:layout_height="wrap_content" android:id="@android:id/list" android:layout_width="fill_parent" android:layout_weight="1" android:choiceMode="multipleChoice"></ListView><LinearLayout android:layout_width="fill_parent" android:background="@android:drawable/bottom_bar" android:orientation="vertical" android:layout_height="wrap_content" android:minHeight="50dip" android:id="@+id/addTimetableButtonPanel"><LinearLayout android:layout_width="wrap_content" android:layout_gravity="center" android:layout_height="fill_parent" android:layout_weight="1" android:orientation="horizontal" android:id="@+id/addTimetableButtonLayout"><Button android:layout_height="wrap_content" android:layout_gravity="center" android:layout_width="wrap_content" android:text="@string/ok_text" android:minWidth="150dip" android:id="@+id/addTimetableOkButton"></Button><Button android:layout_height="wrap_content" android:layout_gravity="center" android:layout_width="wrap_content" android:text="@string/cancel_text" android:minWidth="150dip" android:id="@+id/addTimetableCancelButton"></Button>
+</LinearLayout>
+</LinearLayout>
+
+</LinearLayout>

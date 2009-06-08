@@ -1,16 +1,20 @@
 package blister_pack.blister.windows;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import blister_pack.blister.R;
+import blister_pack.blister.database.BlisterDatabase;
 
 public class AddTimetableWindow extends ListActivity {
 	
@@ -28,7 +33,6 @@ public class AddTimetableWindow extends ListActivity {
 								SET_TIME_DIALOG = 1,
 								NO_DATA_TYPED = 2;
 	
-	ListView dataList;
 	Cursor dataCursor;
 	String pillNameTitle;
 	
@@ -47,8 +51,6 @@ public class AddTimetableWindow extends ListActivity {
 	
 	int hour;
 	int minute;
-	
-	private boolean setValueDialogShowing;
 	
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -106,10 +108,16 @@ public class AddTimetableWindow extends ListActivity {
 		
 		Log.v("eldar",""+this.getClass().getName()+" onCreate");
 		
+		int orientation=this.getResources().getConfiguration().orientation;
+		if (orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+			
+			setContentView(R.layout.add_timetable_window);
+		} else {
+			setContentView(R.layout.add_timetable_window_vertical);
+		}
+		
 		Intent intent = getIntent();
 		pillNameTitle = intent.getStringExtra("pillName");
-		
-		setContentView(R.layout.add_timetable_window);
 		
 		getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		
@@ -200,9 +208,33 @@ public class AddTimetableWindow extends ListActivity {
 		});
 	}
 	
+	
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("time_value_text",timeValueText.getText().toString());
+		outState.putString("number_vaue_text", numberValueText.getText().toString());
+		outState.putInt("hour", hour);
+		outState.putInt("minute", minute);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle state) {
+		super.onRestoreInstanceState(state);
+		timeValueText.setText(state.getString("time_value_text"));
+		numberValueText.setText(state.getString("number_vaue_text"));
+		hour = state.getInt("hour");
+		minute = state.getInt("minute");
+	}
+
 	private void performOkButtonClick() {
-		if (isCorrectData()) {
-		//TODO
+		if (isDataCorrect()) {
+			Date time = getTime();
+			int pillsToTake = getPillsToTake();
+			ArrayList<Integer> days = getDays();
+			saveDataToDatabase(pillNameTitle, pillsToTake, time, days);
+			finish();
 		} else showDialog(NO_DATA_TYPED);
 
 	}
@@ -218,7 +250,6 @@ public class AddTimetableWindow extends ListActivity {
 	}
 	
 	private void performSetNumberButtonClick() {
-		setValueDialogShowing=true;
 		int value;
 		try {
 			value = Integer.parseInt(numberValueText.getText().toString());
@@ -230,7 +261,6 @@ public class AddTimetableWindow extends ListActivity {
 	}
 	
 	private void performSetValueDialogOkPressed(int value) {
-		setValueDialogShowing=false;
 		if (value > 0)
 			numberValueText.setText(parseIntToString(value));
 		else
@@ -238,7 +268,6 @@ public class AddTimetableWindow extends ListActivity {
 	}
 	
 	private void performSetValueDialogCancelPressed() {
-		setValueDialogShowing=false;
 	}
 	
 	private void performSetTimeDialogOkPressed(int hour, int minute) {
@@ -254,7 +283,7 @@ public class AddTimetableWindow extends ListActivity {
 		}
 	}
 	
-	private boolean isCorrectData()
+	private boolean isDataCorrect()
 	{
 		String time = timeValueText.getText().toString();
 		String number = numberValueText.getText().toString();
@@ -264,5 +293,42 @@ public class AddTimetableWindow extends ListActivity {
 			return false;
 		} else return true;
 	}
+	
+	private void saveDataToDatabase(String courseName, int pillsToTake, Date time, ArrayList<Integer> days) {
+		BlisterDatabase db = BlisterDatabase.openDatabase(this);
+		for (int day: days) {
+			db.getPillNotificationTable().insert(courseName, day, time, pillsToTake);
+		}
+	}
+	
+	private int getPillsToTake() {
+		try {
+			return Integer.parseInt(numberValueText.getText().toString());
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+	}
+	
+	private ArrayList<Integer> getDays() {
+		ArrayList<Integer> days = new ArrayList<Integer>();
+		SparseBooleanArray checkedItems = getListView().getCheckedItemPositions();
+		dataCursor.moveToFirst();
+		while (!dataCursor.isAfterLast()) {
+			int day = dataCursor.getInt(dataCursor.getColumnIndex("_id"));
+			if (checkedItems.get(dataCursor.getPosition())) {
+				days.add(day);
+			}
+			dataCursor.moveToNext();
+		}
+		return days;
+	}
+	
+	private Date getTime() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, hour);
+		calendar.set(Calendar.MINUTE, minute);
+		return calendar.getTime();
+	}
+	
 
 }
