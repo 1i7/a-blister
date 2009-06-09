@@ -132,10 +132,9 @@
 			android:id="@+id/editScheduleBottomButtonLayout">
 			<Button android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:text="OK"
-				android:minWidth="100dip" android:id="@+id/editScheduleOKButton"></Button>
+				android:id="@+id/editScheduleOKButton" android:minWidth="150dip"></Button>
 			<Button android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:minWidth="100dip"
-				android:id="@+id/editScheduleCancelButton" android:text="Cancel"></Button>
+				android:layout_height="wrap_content" android:id="@+id/editScheduleCancelButton" android:text="Cancel" android:minWidth="150dip"></Button>
 		</LinearLayout>
 	</LinearLayout>
 

@@ -317,6 +317,7 @@ public class SetTimeWindow extends ListWindow {
 			showDialog(DELETE_TIME_DIALOG);
 			return true;
 		case R.id.setTimeContextEditItem:
+			picker.setValue(dataArrayList.get(selectedItemPosition).pills);
 			showDialog(SET_VALUE_DIALOG);
 			return true;
 		default:
