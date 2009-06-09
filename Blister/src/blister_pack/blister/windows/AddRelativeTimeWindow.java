@@ -18,7 +18,7 @@ import android.widget.TimePicker;
 
 public class AddRelativeTimeWindow extends Activity {
 	
-	public static final int ADD_DIRECT_ITEM_DIALOG = 0,
+	public static final int ADD_DIRECT_TIME_DIALOG = 0,
 							INCORRECT_DATA_DIALOG = 1;
 	
 	public static final int SET_EVERY_TIME = 0, 
@@ -85,9 +85,20 @@ public class AddRelativeTimeWindow extends Activity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
-		case ADD_DIRECT_ITEM_DIALOG:
+		case ADD_DIRECT_TIME_DIALOG:
+			String dialogTitle;
+			switch (setRelativeTimeIndex) {
+			case SET_EVERY_TIME:
+				dialogTitle = getString(R.string.time_interval_text); break;
+			case SET_FROM_TIME:
+				dialogTitle = getString(R.string.start_time_text); break;
+			case SET_TO_TIME:
+				dialogTitle = getString(R.string.end_time_text); break;
+			default:
+				dialogTitle = getString(R.string.add_time_text);
+			}
 			return new AlertDialog.Builder(this)
-				.setTitle(R.string.add_time).setView(timePickerLayout)
+				.setTitle(dialogTitle).setView(timePickerLayout)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						int hour = timePicker.getCurrentHour();
@@ -143,7 +154,7 @@ public class AddRelativeTimeWindow extends Activity {
 				setRelativeTimeIndex = SET_EVERY_TIME;
 				timePicker.setCurrentHour(everyHour);
 				timePicker.setCurrentMinute(everyMinute);
-				showDialog(ADD_DIRECT_ITEM_DIALOG);
+				showDialog(ADD_DIRECT_TIME_DIALOG);
 			}
 		});
 		fromTextView.setOnClickListener(new OnClickListener() {
@@ -151,7 +162,7 @@ public class AddRelativeTimeWindow extends Activity {
 				setRelativeTimeIndex = SET_FROM_TIME;
 				timePicker.setCurrentHour(fromHour);
 				timePicker.setCurrentMinute(fromMinute);
-				showDialog(ADD_DIRECT_ITEM_DIALOG);
+				showDialog(ADD_DIRECT_TIME_DIALOG);
 			}
 		});
 		toTextView.setOnClickListener(new OnClickListener() {
@@ -159,7 +170,7 @@ public class AddRelativeTimeWindow extends Activity {
 				setRelativeTimeIndex = SET_TO_TIME;
 				timePicker.setCurrentHour(toHour);
 				timePicker.setCurrentMinute(toMinute);
-				showDialog(ADD_DIRECT_ITEM_DIALOG);
+				showDialog(ADD_DIRECT_TIME_DIALOG);
 			}
 		});
 		okButton.setOnClickListener(new OnClickListener() {

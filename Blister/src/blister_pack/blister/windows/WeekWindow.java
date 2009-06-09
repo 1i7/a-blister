@@ -41,7 +41,7 @@ public class WeekWindow extends ListWindow {
 		switch (id) {
 		case CLEAR_ALL_DIALOG:
 			return new AlertDialog.Builder(WeekWindow.this)
-				.setTitle(R.string.clear_all_dialog_title)
+				.setTitle(R.string.clear_all_dialog_message)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -55,7 +55,7 @@ public class WeekWindow extends ListWindow {
 				}).create();
 		case CLEAR_DAY_DIALOG:
 			return new AlertDialog.Builder(WeekWindow.this)
-				.setTitle(R.string.clear_day_dialog_title)
+				.setTitle(R.string.clear_day_dialog_message)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -69,7 +69,7 @@ public class WeekWindow extends ListWindow {
 				}).create();
 		case DELETE_COURSE_DIALOG:
 			return new AlertDialog.Builder(WeekWindow.this)
-				.setTitle(R.string.delete_course_dialog_title)
+				.setTitle(R.string.delete_course_dialog_message)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
