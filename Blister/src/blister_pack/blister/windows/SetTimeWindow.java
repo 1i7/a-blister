@@ -112,6 +112,7 @@ public class SetTimeWindow extends ListWindow {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.v("eldar", "SetDirectTimeWindow: onCreate");
+
 		super.onCreate(savedInstanceState);
 
 		findViewById(R.id.ListWindowBottomButtonPanel).setVisibility(View.VISIBLE);
@@ -151,6 +152,7 @@ public class SetTimeWindow extends ListWindow {
 			picker.setValue(pickerValue);
 		}
 
+		
 		Log.v("eldar", "SetDirectTimeWindow: created");
 	}
 	

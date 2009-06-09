@@ -34,6 +34,8 @@ public class AddRelativeTimeWindow extends Activity {
 	TimePicker timePicker;
 	LinearLayout timePickerLayout;
 	
+	AlertDialog addDirectTimeDialog;
+	
 	LayoutInflater factory;
 	
 	private int setRelativeTimeIndex;
@@ -73,6 +75,7 @@ public class AddRelativeTimeWindow extends Activity {
 			everyTextView.setText(everyText);
 			fromTextView.setText(fromText);
 			toTextView.setText(toText);
+			setRelativeTimeIndex = savedInstanceState.getInt("set_relative_time_index");
 		} else {
 			everyTextView.setText(R.string.time_preset);
 			fromTextView.setText(R.string.time_preset);
@@ -86,19 +89,8 @@ public class AddRelativeTimeWindow extends Activity {
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case ADD_DIRECT_TIME_DIALOG:
-			String dialogTitle;
-			switch (setRelativeTimeIndex) {
-			case SET_EVERY_TIME:
-				dialogTitle = getString(R.string.time_interval_text); break;
-			case SET_FROM_TIME:
-				dialogTitle = getString(R.string.start_time_text); break;
-			case SET_TO_TIME:
-				dialogTitle = getString(R.string.end_time_text); break;
-			default:
-				dialogTitle = getString(R.string.add_time_text);
-			}
-			return new AlertDialog.Builder(this)
-				.setTitle(dialogTitle).setView(timePickerLayout)
+			addDirectTimeDialog = new AlertDialog.Builder(this)
+				.setTitle(R.string.add_time_text).setView(timePickerLayout)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						int hour = timePicker.getCurrentHour();
@@ -112,6 +104,8 @@ public class AddRelativeTimeWindow extends Activity {
 					}
 				})
 				.create();
+			addDirectTimeDialog.setTitle(getDialogTitle());
+			return addDirectTimeDialog;
 		case INCORRECT_DATA_DIALOG:
 			return new AlertDialog.Builder(this)
 				.setTitle(R.string.incorrect_data_dialog_message)
@@ -145,6 +139,7 @@ public class AddRelativeTimeWindow extends Activity {
 		outState.putString("every_text", everyTextView.getText().toString());
 		outState.putString("from_text", fromTextView.getText().toString());
 		outState.putString("to_text", toTextView.getText().toString());
+		outState.putInt("set_relative_time_index", setRelativeTimeIndex);
 		Log.v("eldar","AddRelativeTimeWindow: instance state saved");
 	}
 	
@@ -154,6 +149,8 @@ public class AddRelativeTimeWindow extends Activity {
 				setRelativeTimeIndex = SET_EVERY_TIME;
 				timePicker.setCurrentHour(everyHour);
 				timePicker.setCurrentMinute(everyMinute);
+				if (addDirectTimeDialog!=null)
+					addDirectTimeDialog.setTitle(getDialogTitle());
 				showDialog(ADD_DIRECT_TIME_DIALOG);
 			}
 		});
@@ -162,6 +159,8 @@ public class AddRelativeTimeWindow extends Activity {
 				setRelativeTimeIndex = SET_FROM_TIME;
 				timePicker.setCurrentHour(fromHour);
 				timePicker.setCurrentMinute(fromMinute);
+				if (addDirectTimeDialog!=null)
+					addDirectTimeDialog.setTitle(getDialogTitle());
 				showDialog(ADD_DIRECT_TIME_DIALOG);
 			}
 		});
@@ -170,6 +169,8 @@ public class AddRelativeTimeWindow extends Activity {
 				setRelativeTimeIndex = SET_TO_TIME;
 				timePicker.setCurrentHour(toHour);
 				timePicker.setCurrentMinute(toMinute);
+				if (addDirectTimeDialog!=null)
+					addDirectTimeDialog.setTitle(getDialogTitle());
 				showDialog(ADD_DIRECT_TIME_DIALOG);
 			}
 		});
@@ -229,6 +230,19 @@ public class AddRelativeTimeWindow extends Activity {
 	
 	private void performAddDirectTimeDialogCancelPressed() {
 		timePicker.clearFocus();
+	}
+	
+	private String getDialogTitle() {
+		switch (setRelativeTimeIndex) {
+		case SET_EVERY_TIME:
+			return getString(R.string.time_interval_text);
+		case SET_FROM_TIME:
+			return getString(R.string.start_time_text);
+		case SET_TO_TIME:
+			return getString(R.string.end_time_text);
+		default:
+			return getString(R.string.add_time_text);
+		}
 	}
 	
 	private String convertIntToString(int number)
