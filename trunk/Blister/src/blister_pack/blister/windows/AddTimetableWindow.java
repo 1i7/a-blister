@@ -57,7 +57,7 @@ public class AddTimetableWindow extends ListActivity {
 		switch (id) {
 		case SET_NUMBER_DIALOG:
 			return new AlertDialog.Builder(AddTimetableWindow.this)
-				.setTitle(R.string.set_value_dialog_title).setView(setValueDialogLayout)
+				.setTitle(R.string.set_value_text).setView(setValueDialogLayout)
 				.setPositiveButton(R.string.ok_text,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
@@ -74,7 +74,7 @@ public class AddTimetableWindow extends ListActivity {
 				}).create();
 		case SET_TIME_DIALOG:
 			return new AlertDialog.Builder(AddTimetableWindow.this)
-			.setTitle(R.string.add_time).setView(timePickerLayout)
+			.setTitle(R.string.add_time_text).setView(timePickerLayout)
 			.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 					hour = timePicker.getCurrentHour();

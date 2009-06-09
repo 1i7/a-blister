@@ -25,12 +25,12 @@ public class EditScheduleWindow extends TabActivity{
         final TabHost tabHost = getTabHost();
  
         tabHost.addTab(tabHost.newTabSpec("tab1")
-                .setIndicator(pillNameTitle+"\n"+getString(R.string.timetable_text))
+                .setIndicator(pillNameTitle+"\n"+getString(R.string.timetable_text_low))
                 .setContent(new Intent(this, WeekWindow.class)
                 	.putExtra("pillName", pillNameTitle)
                 )); 
         tabHost.addTab(tabHost.newTabSpec("tab2")
-                .setIndicator(pillNameTitle+"\n"+getString(R.string.info_text))
+                .setIndicator(pillNameTitle+"\n"+getString(R.string.info_text_low))
                 .setContent(new Intent(this, ScheduleInfoWindow.class)
                 	.putExtra("pillName", pillNameTitle)
                 ));

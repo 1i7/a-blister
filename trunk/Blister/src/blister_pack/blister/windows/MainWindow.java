@@ -41,7 +41,7 @@ public class MainWindow extends ListWindow {
 		switch (id) {
 		case CLEAR_ALL_DIALOG:
 			return new AlertDialog.Builder(MainWindow.this).setTitle(
-					R.string.clear_all_dialog_title).setPositiveButton(
+					R.string.clear_all_dialog_message).setPositiveButton(
 					R.string.ok_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,
 								int whichButton) {
@@ -55,7 +55,7 @@ public class MainWindow extends ListWindow {
 					}).create();
 		case DELETE_ITEM_DIALOG:
 			return new AlertDialog.Builder(MainWindow.this).setTitle(
-					R.string.delete_item_dialog_title).setPositiveButton(
+					R.string.delete_item_dialog_message).setPositiveButton(
 					R.string.ok_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,
 								int whichButton) {

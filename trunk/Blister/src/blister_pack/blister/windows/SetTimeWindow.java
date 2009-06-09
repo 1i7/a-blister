@@ -35,9 +35,9 @@ import blister_pack.blister.database.tables.PillNotification;
 
 public class SetTimeWindow extends ListWindow {
 	
-	private static final int ADD_DIRECT_ITEM_DIALOG = 0,
+	private static final int ADD_DIRECT_TIME_DIALOG = 0,
 							 DELETE_ALL_DIALOG = 1,
-							 DELETE_ITEM_DIALOG = 2,
+							 DELETE_TIME_DIALOG = 2,
 							 SET_VALUE_DIALOG = 3;
 	
 	private static final int ADD_REL_TIME_REQUEST_CODE = 0;
@@ -158,9 +158,9 @@ public class SetTimeWindow extends ListWindow {
 	protected Dialog onCreateDialog(int id) {
 		
 		switch (id) {
-		case ADD_DIRECT_ITEM_DIALOG:
+		case ADD_DIRECT_TIME_DIALOG:
 			Dialog dialog = new AlertDialog.Builder(SetTimeWindow.this)
-			.setTitle(R.string.add_time).setView(timePickerLayout)
+			.setTitle(R.string.add_time_text).setView(timePickerLayout)
 			.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 					int hour = timePicker.getCurrentHour();
@@ -176,9 +176,9 @@ public class SetTimeWindow extends ListWindow {
 			})
 			.create();
 			return dialog;
-		case DELETE_ITEM_DIALOG:
+		case DELETE_TIME_DIALOG:
 			return new AlertDialog.Builder(SetTimeWindow.this)
-				.setTitle(R.string.delete_item_dialog_title)
+				.setTitle(R.string.delete_item_dialog_message)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -191,7 +191,7 @@ public class SetTimeWindow extends ListWindow {
 				}).create();
 		case DELETE_ALL_DIALOG:
 			return new AlertDialog.Builder(SetTimeWindow.this)
-				.setTitle(R.string.clear_all_dialog_title)
+				.setTitle(R.string.clear_all_dialog_message)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -204,7 +204,7 @@ public class SetTimeWindow extends ListWindow {
 				}).create();
 		case SET_VALUE_DIALOG:
 			return new AlertDialog.Builder(SetTimeWindow.this)
-				.setTitle(R.string.set_value_dialog_title).setView(setValueLayout)
+				.setTitle(R.string.number_of_pills_text).setView(setValueLayout)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -312,7 +312,7 @@ public class SetTimeWindow extends ListWindow {
 		selectedItemTitle = name;
 		switch (item.getItemId()) {
 		case R.id.setTimeContextDeleteItem:
-			showDialog(DELETE_ITEM_DIALOG);
+			showDialog(DELETE_TIME_DIALOG);
 			return true;
 		case R.id.setTimeContextEditItem:
 			showDialog(SET_VALUE_DIALOG);
@@ -336,7 +336,7 @@ public class SetTimeWindow extends ListWindow {
 
 	public static int getAddDirectTimeDialogId()
 	{
-		return ADD_DIRECT_ITEM_DIALOG;
+		return ADD_DIRECT_TIME_DIALOG;
 	}
 	
 	private void setButtonListeners() {
@@ -402,7 +402,7 @@ public class SetTimeWindow extends ListWindow {
 	protected void performAddTimeAction() {
 		timePicker.setCurrentHour(0);
 		timePicker.setCurrentMinute(0);
-		showDialog(ADD_DIRECT_ITEM_DIALOG);
+		showDialog(ADD_DIRECT_TIME_DIALOG);
 	}
 	
 	protected void performAddTimeSeriesAction() {

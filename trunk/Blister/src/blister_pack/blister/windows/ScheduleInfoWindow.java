@@ -113,7 +113,7 @@ public class ScheduleInfoWindow extends Activity {
 				}).create();
 		case SET_VALUE_DIALOG:
 			return new AlertDialog.Builder(ScheduleInfoWindow.this)
-				.setTitle(R.string.set_value_dialog_title).setView(setValueDialogLayout)
+				.setTitle(R.string.set_value_text).setView(setValueDialogLayout)
 				.setPositiveButton(R.string.ok_text,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
@@ -130,7 +130,7 @@ public class ScheduleInfoWindow extends Activity {
 				}).create();
 		case DELETE_COURSE_DIALOG:
 			return new AlertDialog.Builder(ScheduleInfoWindow.this)
-				.setTitle(R.string.delete_course_dialog_title)
+				.setTitle(R.string.delete_course_dialog_message)
 				.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int whichButton) {
@@ -215,12 +215,12 @@ public class ScheduleInfoWindow extends Activity {
 		  new Spinner.OnItemSelectedListener() { 
 		    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 		    	String parameter = extraParamSpinner.getSelectedItem().toString();
-		    	if (parameter.equals(getString(R.string.new_schedule_duration_text))) {
-		    		valueNameText.setText(R.string.duration);
+		    	if (parameter.equals(getString(R.string.duration_of_course_text))) {
+		    		valueNameText.setText(R.string.duration_text + ":");
 		    		valueDimText.setVisibility(View.VISIBLE);
 		    		refreshDimText();
-		    	} else if (parameter.equals(getString(R.string.new_schedule_pills_text))) {
-		    				valueNameText.setText(R.string.number);
+		    	} else if (parameter.equals(getString(R.string.number_of_pills_text))) {
+		    				valueNameText.setText(R.string.pills_text + ":");
 		    				valueDimText.setVisibility(View.GONE);
 						}
 		    	refreshButtonsActivity();
@@ -230,9 +230,9 @@ public class ScheduleInfoWindow extends Activity {
 		
 	private void refreshDimText() {
 		if (getDurationOfCourse()==1) {
-			valueDimText.setText(R.string.day_text);
+			valueDimText.setText(R.string.day_text_low);
 		} else {
-			valueDimText.setText(R.string.days_text);
+			valueDimText.setText(R.string.days_text_low);
 		}
 	}
 	
@@ -467,7 +467,7 @@ public class ScheduleInfoWindow extends Activity {
 	 */
 	private int getNumberOfPills() {
 		if (extraParamSpinner.getSelectedItem().equals(
-				getString(R.string.new_schedule_pills_text))) {
+				getString(R.string.number_of_pills_text))) {
 			try {
 				int result = Integer.parseInt(valueText.getText()
 						.toString());
@@ -485,7 +485,7 @@ public class ScheduleInfoWindow extends Activity {
 	 */
 	private int getDurationOfCourse() {
 		if (extraParamSpinner.getSelectedItem().equals(
-				getString(R.string.new_schedule_duration_text))) {
+				getString(R.string.duration_of_course_text))) {
 			try {
 				int result = Integer.parseInt(valueText.getText()
 						.toString());

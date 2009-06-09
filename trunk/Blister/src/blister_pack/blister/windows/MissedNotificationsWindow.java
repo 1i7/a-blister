@@ -48,7 +48,7 @@ public class MissedNotificationsWindow extends ListWindow{
 		switch (id) {
 		case CONFIRM_ALL_DIALOG:
 			return new AlertDialog.Builder(MissedNotificationsWindow.this)
-				.setTitle(R.string.confirm_all_dialog_title)
+				.setTitle(R.string.confirm_all_dialog_message)
 				.setPositiveButton(R.string.ok_text,
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int whichButton) {
@@ -61,7 +61,7 @@ public class MissedNotificationsWindow extends ListWindow{
 					}).create();
 		case IGNORE_ALL_DIALOG:
 			return new AlertDialog.Builder(MissedNotificationsWindow.this)
-			.setTitle(R.string.ignore_all_dialog_title)
+			.setTitle(R.string.ignore_all_dialog_message)
 			.setPositiveButton(R.string.ok_text,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
