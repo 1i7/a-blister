@@ -216,11 +216,11 @@ public class ScheduleInfoWindow extends Activity {
 		    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 		    	String parameter = extraParamSpinner.getSelectedItem().toString();
 		    	if (parameter.equals(getString(R.string.duration_of_course_text))) {
-		    		valueNameText.setText(R.string.duration_text + ":");
+		    		valueNameText.setText(getString(R.string.duration_text) + ":");
 		    		valueDimText.setVisibility(View.VISIBLE);
 		    		refreshDimText();
 		    	} else if (parameter.equals(getString(R.string.number_of_pills_text))) {
-		    				valueNameText.setText(R.string.pills_text + ":");
+		    				valueNameText.setText(getString(R.string.pills_text) + ":");
 		    				valueDimText.setVisibility(View.GONE);
 						}
 		    	refreshButtonsActivity();

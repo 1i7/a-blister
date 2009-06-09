@@ -38,7 +38,7 @@
 		<LinearLayout android:id="@+id/ListWindowBottomButtonLayout" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_width="fill_parent" android:orientation="vertical">
 			<Button android:layout_width="wrap_content"
 				android:text="OK"
-				android:id="@+id/ListWindowOKButton" android:layout_gravity="center" android:layout_height="fill_parent" android:minWidth="100dip"></Button>
+				android:id="@+id/ListWindowOKButton" android:layout_gravity="center" android:layout_height="fill_parent" android:minWidth="150dip"></Button>
 		</LinearLayout>
 	</LinearLayout>
 
