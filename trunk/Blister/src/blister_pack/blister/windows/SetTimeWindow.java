@@ -330,11 +330,12 @@ public class SetTimeWindow extends ListWindow {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		selectedItemPosition = position;
+	/*	selectedItemPosition = position;
 		Cursor cursor = (Cursor)dataList.getItemAtPosition(position);
 		selectedItemTitle = cursor.getString(cursor.getColumnIndex("title"));
 		picker.setValue(dataArrayList.get(position).pills);
-		showDialog(SET_VALUE_DIALOG);
+		showDialog(SET_VALUE_DIALOG); */
+		l.showContextMenuForChild(v);
 	}
 
 	public static int getAddDirectTimeDialogId()
