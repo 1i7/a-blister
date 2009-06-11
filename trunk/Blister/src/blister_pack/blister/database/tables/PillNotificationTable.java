@@ -201,6 +201,7 @@ public class PillNotificationTable extends AbstractTable
 		{
 			String where = TIME + "='" + timeFormat.format(time) + "' and " + DAY_OF_WEEK + "=" + dayOfWeek + " and " +
 					COURSE_NAME + "='" + courseName + "'";
+			Log.v("adalx","PillNotificationTable: selectOne: selection arguments: "+where);
 			cursor = db.query(TABLE_NAME, ALL_COLUMNS, where, null, null, null, TIME);
 			cursor.moveToFirst();
 		}
