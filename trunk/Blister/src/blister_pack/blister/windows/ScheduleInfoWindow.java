@@ -197,8 +197,9 @@ public class ScheduleInfoWindow extends Activity {
 		
 		if (bundle!=null) {
 			initValuesFromBundle(bundle);
-			/* !!! Not understandable why this dialog disappears if !newScheduleState 
-			 * and does not disappear otherwise */
+			/* This dialog disappears if <code>!newScheduleState</code> and does not disappear otherwise. 
+			 * This thing concerned with the fact that if <code>newScheduleState</code> than
+			 * we have ScheduleInfoWindow belonging to TabActivity*/
 			if (setValueDialogShowing) {
 				if (!newScheduleState) { 
 					Log.v("adalx","ScheduleInfoWindow: force creating setValueDialog");
