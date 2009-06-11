@@ -201,6 +201,7 @@ public class ScheduleInfoWindow extends Activity {
 			 * and does not disappear otherwise */
 			if (setValueDialogShowing) {
 				if (!newScheduleState) { 
+					Log.v("adalx","ScheduleInfoWindow: force creating setValueDialog");
 					showDialog(SET_VALUE_DIALOG);
 				}
 			}
@@ -278,11 +279,13 @@ public class ScheduleInfoWindow extends Activity {
 				} else if (numberOfPills > 0) {
 					extraParamSpinner.setSelection(0);
 					valueText.setText(parseIntToString(numberOfPills));
-				} else
+				} else {
 					valueText.setText(R.string.number_preset);
+				}
 				initialName = pillNameTitle;
 				initialSelection = extraParamSpinner.getSelectedItemPosition();
 				initialValue = valueText.getText().toString();
+				
 			} else {
 				valueText.setText(R.string.number_preset);
 			}
