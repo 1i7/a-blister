@@ -112,7 +112,7 @@ public class ScheduleInfoWindow extends Activity {
 					}
 				}).create();
 		case SET_VALUE_DIALOG:
-			return new AlertDialog.Builder(ScheduleInfoWindow.this)
+			AlertDialog dialog = new AlertDialog.Builder(ScheduleInfoWindow.this)
 				.setTitle(R.string.set_value_text).setView(setValueDialogLayout)
 				.setPositiveButton(R.string.ok_text,
 					new DialogInterface.OnClickListener() {
@@ -128,6 +128,8 @@ public class ScheduleInfoWindow extends Activity {
 							performSetValueDialogCancelPressed();
 						}
 				}).create();
+			Log.v("adalx","ScheduleInfoWindow: setValueDialog created");
+			return dialog;
 		case DELETE_COURSE_DIALOG:
 			return new AlertDialog.Builder(ScheduleInfoWindow.this)
 				.setTitle(R.string.delete_course_dialog_message)
@@ -195,8 +197,12 @@ public class ScheduleInfoWindow extends Activity {
 		
 		if (bundle!=null) {
 			initValuesFromBundle(bundle);
+			/* !!! Not understandable why this dialog disappears if !newScheduleState 
+			 * and does not disappear otherwise */
 			if (setValueDialogShowing) {
-				showDialog(SET_VALUE_DIALOG);
+				if (!newScheduleState) { 
+					showDialog(SET_VALUE_DIALOG);
+				}
 			}
 		}
 
@@ -260,7 +266,6 @@ public class ScheduleInfoWindow extends Activity {
 
 	@Override
 	protected void onResume() {
-		Log.v("eldar","hi");
 		super.onResume();
 		if (!isDataInitialized) {
 			if (!newScheduleState) {

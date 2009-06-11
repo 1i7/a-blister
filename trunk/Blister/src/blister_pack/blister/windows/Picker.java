@@ -24,7 +24,7 @@ public class Picker extends FrameLayout {
 	
 	private int minValue=DEFAULT_MIN_VALUE;
 	private int maxValue=DEFAULT_MAX_VALUE;
-
+	
 	public Picker(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
 		LayoutInflater factory = LayoutInflater.from(context);
