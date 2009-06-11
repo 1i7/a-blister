@@ -156,7 +156,8 @@ public class ConfirmActivity extends Activity
 		Calendar timeCalendar = Calendar.getInstance();
 		timeCalendar.setTime(time);
 		int dayOfWeek = timeCalendar.get(Calendar.DAY_OF_WEEK);
-		PillNotification pillNotification = database.getPillNotificationTable().selectOne(courseName, dayOfWeek, time);
+		PillNotification pillNotification = database.getPillNotificationTable().selectOne(courseName, 
+				dayOfWeek, time);
 		if (pillNotification == null) {
 			Log.v("adalx", "ConfirmActivity: pillNotification was deleted: name=" +courseName+ "; day=" + dayOfWeek 
 					+ "; time=" + timeFormat.format(time));

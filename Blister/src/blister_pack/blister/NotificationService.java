@@ -191,11 +191,10 @@ public class NotificationService extends Service {
 		Intent confirmIntent = new Intent(NotificationService.this, ConfirmActivity.class);
 		confirmIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		confirmIntent.putExtra("notification_id", notificationID);
-		Log.v("adalx","NotificationManager: showNotification: putting extra");
 		confirmIntent.putExtra("course_name", courseName)
 			.putExtra("time", time);
-		Log.v("adalx","NotificationManager: showNotification: putted");
-		PendingIntent contentIntent = PendingIntent.getActivity(NotificationService.this, notificationID, confirmIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(NotificationService.this, notificationID, 
+				confirmIntent, 0);
 		notification.setLatestEventInfo(NotificationService.this, notificationTitle, 
 				courseName + ": " + notificationMessage, contentIntent);
 		manager.notify(notificationID, notification);
@@ -211,7 +210,6 @@ public class NotificationService extends Service {
 		Intent confirmIntent = new Intent(this, MissedNotificationsWindow.class);
 		confirmIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		//confirmIntent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-		Log.v("adalx","NotificationManager: showMissedNotification: putting extra");
 		confirmIntent.putExtra("notification_id", notificationID);
 		ArrayList<String> names = new ArrayList<String>();
 		ArrayList<Date> times = new ArrayList<Date>();
@@ -222,7 +220,6 @@ public class NotificationService extends Service {
 		}
 		confirmIntent.putExtra("times", times);
 		confirmIntent.putExtra("names", names);
-		Log.v("adalx","NotificationManager: showMissedNotification: putted");
 		PendingIntent contentIntent = PendingIntent.getActivity(NotificationService.this, notificationID, confirmIntent, 0);
 
 		notification.setLatestEventInfo(NotificationService.this, notificationTitle, notificationMessage, contentIntent);
