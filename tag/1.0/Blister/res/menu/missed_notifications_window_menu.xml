@@ -1,3 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@+id/missedConfirmAll" android:icon="@drawable/ic_menu_agenda" android:title="@string/confirm_all_text"></item>
-<item android:id="@+id/missedIgnoreAll" android:icon="@drawable/ic_menu_close" android:title="@string/ignore_all_text"></item>
-</menu>

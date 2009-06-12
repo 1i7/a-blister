@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@+id/setTimeAddDirectItem" android:icon="@drawable/ic_menu_add" android:title="@string/add_time_text"></item>
-<item android:id="@+id/setTimeAddRelativeItem" android:icon="@drawable/ic_menu_add" android:title="@string/add_time_series_text"></item>
-<item android:icon="@drawable/ic_menu_delete" android:title="@string/delete_all_text" android:id="@+id/setTimeDeleteAllItem"></item>
-</menu>

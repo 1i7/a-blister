@@ -1,8 +1,0 @@
-<LinearLayout android:layout_height="wrap_content"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:orientation="vertical" android:id="@+id/setValueLayout">
-	<blister_pack.blister.windows.Picker
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center" android:id="@+id/setValuePicker"></blister_pack.blister.windows.Picker>
-
-</LinearLayout>
