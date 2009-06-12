@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:id="@+id/AddRelTimeWindowLayout"
+	android:orientation="vertical" android:layout_height="wrap_content">
+	<ScrollView android:id="@+id/AddRelTimeScrollView"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_weight="1">
+		<LinearLayout android:layout_height="wrap_content"
+			android:id="@+id/AddRelTimeLayout" android:orientation="vertical"
+			android:layout_width="fill_parent">
+
+
+
+			<LinearLayout android:layout_height="wrap_content"
+				android:layout_width="fill_parent" android:orientation="vertical"
+				android:id="@+id/AddRelTimeEveryLayout">
+				<LinearLayout android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:background="@android:drawable/title_bar"
+					android:id="@+id/AddRelTimeEveryTitle">
+					<TextView android:layout_height="wrap_content"
+						android:layout_width="wrap_content" android:id="@+id/AddRelTimeEveryText"
+						android:textStyle="bold" android:textColor="#ffffff"
+						android:paddingLeft="6dip" android:paddingRight="6dip"
+						android:layout_gravity="center" android:text="@string/time_interval_text"></TextView>
+				</LinearLayout>
+				<TextView android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:textAppearance="?android:attr/textAppearanceLarge"
+					android:gravity="center" android:id="@+id/AddRelTimeEverySetPanel"
+					android:focusable="true" android:background="@drawable/menuitem_background"
+					android:clickable="true" android:minHeight="50dip" android:text="@string/time_preset"></TextView>
+
+			</LinearLayout>
+			<LinearLayout android:layout_height="wrap_content"
+				android:layout_width="fill_parent" android:orientation="vertical"
+				android:id="@+id/AddRelTimeFromLayout">
+				<LinearLayout android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:background="@android:drawable/title_bar"
+					android:id="@+id/AddRelTimeFromTitle">
+					<TextView android:layout_height="wrap_content"
+						android:layout_width="wrap_content" android:id="@+id/AddRelTimeFromText"
+						android:textStyle="bold" android:textColor="#ffffff"
+						android:paddingLeft="6dip" android:paddingRight="6dip"
+						android:layout_gravity="center" android:text="@string/start_time_text"></TextView>
+				</LinearLayout>
+				<TextView android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:textAppearance="?android:attr/textAppearanceLarge"
+					android:gravity="center" android:id="@+id/AddRelTimeFromSetPanel"
+					android:focusable="true" android:background="@drawable/menuitem_background"
+					android:clickable="true" android:minHeight="50dip" android:text="@string/time_preset"></TextView>
+			</LinearLayout>
+			<LinearLayout android:layout_height="wrap_content"
+				android:layout_width="fill_parent" android:orientation="vertical"
+				android:id="@+id/AddRelTimeToLayout">
+				<LinearLayout android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:background="@android:drawable/title_bar"
+					android:id="@+id/AddRelTimeToTitle">
+					<TextView android:layout_height="wrap_content"
+						android:layout_width="wrap_content" android:id="@+id/AddRelTimeToText"
+						android:textStyle="bold" android:textColor="#ffffff"
+						android:paddingLeft="6dip" android:paddingRight="6dip"
+						android:layout_gravity="center" android:text="@string/end_time_text"></TextView>
+				</LinearLayout>
+				<TextView android:layout_height="wrap_content"
+					android:layout_width="fill_parent" android:textAppearance="?android:attr/textAppearanceLarge"
+					android:gravity="center" android:id="@+id/AddRelTimeToSetPanel"
+					android:focusable="true" android:clickable="true"
+					android:background="@drawable/menuitem_background"
+					android:minHeight="50dip" android:text="@string/time_preset"></TextView>
+			</LinearLayout>
+		</LinearLayout>
+
+	</ScrollView>
+	<LinearLayout android:layout_width="fill_parent"
+		android:background="@android:drawable/bottom_bar" android:orientation="vertical"
+		android:minHeight="50dip" android:id="@+id/AddRelTimeButtonPanel"
+		android:layout_height="fill_parent">
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_gravity="center" android:layout_height="fill_parent"
+			android:layout_weight="1" android:orientation="horizontal"
+			android:id="@+id/AddRelTimeButtonLayout">
+			<Button android:layout_height="wrap_content"
+				android:layout_gravity="center" android:layout_width="wrap_content"
+				android:minWidth="150dip" android:id="@+id/AddRelTimeOkButton"
+				android:text="@string/ok_text"></Button>
+			<Button android:layout_height="wrap_content"
+				android:layout_gravity="center" android:layout_width="wrap_content"
+				android:minWidth="150dip" android:id="@+id/AddRelTimeCancelButton"
+				android:text="@string/cancel_text"></Button>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
