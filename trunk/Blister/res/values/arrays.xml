@@ -1,6 +1,0 @@
-<resources>
-<string-array name="extra_params">
-        <item>@string/number_of_pills_text</item>
-        <item>@string/duration_of_course_text</item>
-    </string-array>
-</resources>
