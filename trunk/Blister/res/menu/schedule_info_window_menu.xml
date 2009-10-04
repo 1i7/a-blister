@@ -1,2 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@+id/infoDeleteItem" android:title="@string/delete_course_text" android:icon="@drawable/ic_menu_delete"></item>
-</menu>

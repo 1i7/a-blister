@@ -1,3 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@+id/missedContextConfirmItem" android:title="@string/confirm_text"></item>
-<item android:id="@+id/missedContextIgnoreItem" android:title="@string/ignore_text"></item>
-</menu>
