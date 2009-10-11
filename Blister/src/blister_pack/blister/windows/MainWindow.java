@@ -135,7 +135,8 @@ public class MainWindow extends ListWindow {
 			showDialog(CLEAR_ALL_DIALOG);
 			return true;
 		case R.id.mainAboutItem:
-			// TODO
+			final Intent intent= new Intent(MainWindow.this, AboutActivity.class);
+			startActivity(intent);
 			return true;
 		default:
 			return false;

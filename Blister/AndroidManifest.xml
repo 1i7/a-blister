@@ -48,6 +48,10 @@
 				<action android:name="android.intent.action.MAIN" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".windows.AboutActivity"
+			android:label="@string/about_caption"/>
+		<activity android:name="com.sadko.bursaq.GotoBursaqActivity"
+			android:label="@string/get_bursaq_caption" />
 	</application>
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>
