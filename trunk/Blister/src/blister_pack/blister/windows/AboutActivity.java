@@ -31,11 +31,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import blister_pack.blister.R;
+
 import com.sadko.bursaq.BursaqConstants;
 import com.sadko.bursaq.GotoBursaqActivity;
 
@@ -51,6 +50,7 @@ public class AboutActivity extends Activity {
 	private static final String SEARCH_MARKET_COMPONENT_CLASS = "com.android.vending.SearchAssetListActivity";
 	private static final String SEARCH_QUERY_PUBLISHER = "pub:\"Sadko Mobile\"";
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
