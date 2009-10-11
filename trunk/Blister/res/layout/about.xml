@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Copyright (C) 2009 Sadko Mobile
+     www.sadko.mobi
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout android:layout_width="fill_parent"
+		android:orientation="horizontal"
+		android:layout_height="wrap_content" android:minHeight="65dip"
+		android:background="@drawable/top_bar" android:visibility="visible" android:id="@+id/aboutActivityTopPanel">
+
+
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:id="@+id/aboutActivityImageLayout">
+			<ImageView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:layout_marginLeft="10dip" android:adjustViewBounds="true" android:scaleType="fitXY"
+				android:layout_gravity="center" android:maxHeight="50dip" android:id="@+id/about_applogo_img" android:src="@drawable/about_app_icon"></ImageView>
+		</LinearLayout>
+		<LinearLayout android:layout_width="fill_parent" android:layout_gravity="center_vertical"
+			android:layout_height="fill_parent" android:orientation="horizontal" android:id="@+id/aboutActivityTextLayout">
+			<TextView android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:text="Title"
+				android:layout_marginBottom="5dip" android:layout_gravity="bottom"
+				android:layout_width="fill_parent" android:paddingRight="6dip"
+				android:paddingLeft="20dip" android:id="@+id/about_appname_txt"></TextView>
+		</LinearLayout>
+	</LinearLayout>
+
+    <!-- bottom text -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/about_authors" android:layout_marginTop="10dip" android:gravity="left" android:layout_marginLeft="10dip"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/about_team" android:gravity="left" android:layout_marginLeft="30dip"/>
+                    
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/about_project_supervisors" android:gravity="left" android:layout_marginLeft="10dip" android:layout_marginTop="5dip"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/about_supervisors" android:layout_marginLeft="30dip" android:gravity="left"/>
+        
+        
+        
+        
+        
+    <ListView android:id="@+id/about_actions_lst" android:layout_width="fill_parent" android:layout_height="wrap_content" android:transcriptMode="normal"/></LinearLayout>
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="fill_parent"><TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5px" android:gravity="center" android:textStyle="bold" android:textColor="#525152" android:textSize="12sp" android:text="@string/about_copyright" /><TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="5px" android:gravity="center" android:textStyle="bold" android:textColor="#525152" android:textSize="12sp" android:text="@string/about_published_by" /></LinearLayout>
+</LinearLayout>
