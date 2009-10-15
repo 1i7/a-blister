@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="blister_pack.blister">
+	package="blister_pack.blister"
+	android:versionCode="1"
+    android:versionName="1.2">
 	<application android:icon="@drawable/shield" android:label="Blister">
 		<receiver android:name="StartupReceiver">
 			<intent-filter>
@@ -54,4 +56,6 @@
 			android:label="@string/get_bursaq_caption" />
 	</application>
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-sdk
+        android:minSdkVersion="2" />
 </manifest>
