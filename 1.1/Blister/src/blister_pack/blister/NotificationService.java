@@ -173,7 +173,7 @@ public class NotificationService extends Service {
 		db.getOccuredNotificationTable().insert(courseName, time);
 
 		notification = new Notification(R.drawable.pills_man, notificationMessage, time.getTime());
-		notification.defaults |= Notification.DEFAULT_ALL;
+		//notification.defaults |= Notification.DEFAULT_ALL;
 		Intent confirmIntent = new Intent(NotificationService.this, ConfirmActivity.class);
 		confirmIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		confirmIntent.putExtra("notification_id", notificationID);
