@@ -41,7 +41,7 @@
 		<activity android:name=".windows.ConfirmActivity"
 			android:label="Blister" android:theme="@android:style/Theme.Dialog" />
 		<service android:name="ScheduleAlarmsService" />
-		<service android:name="ShowNotificationService" android:process=":remote"/>
+		<service android:name="ShowNotificationService"/>
 		<receiver android:name="AlarmReceiver" android:process=":remote"/>
 		<activity android:label="Blister" android:name=".windows.MissedNotificationsWindow"></activity>
 		<activity android:label="@string/add_time_series_text"

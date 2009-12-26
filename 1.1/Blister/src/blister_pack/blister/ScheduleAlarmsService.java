@@ -79,6 +79,8 @@ public class ScheduleAlarmsService extends Service {
 		timer = new Timer();
 		alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		scheduleNotifications();
+		Log.v(TAG,"Notifications scheduled. Stopping self.");
+		stopSelf();
 	}
 
 	// schedules notifications or stops self if no further notifications needed
@@ -162,7 +164,6 @@ public class ScheduleAlarmsService extends Service {
 					getSchedulingPendingIntent());
 			count++;
 		}
-		stopSelf();
 		return count;
 	}
 	
@@ -174,10 +175,10 @@ public class ScheduleAlarmsService extends Service {
 		PendingIntent result = PendingIntent.getService(ScheduleAlarmsService.this, notificationID, 
 				notificationIntent, 0);*/
 		Intent notificationIntent = new Intent(ScheduleAlarmsService.this,AlarmReceiver.class);
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		//notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		notificationIntent.putExtra("notification_id", notificationID);
 		notificationIntent.putExtra("course_name", courseName).putExtra("time", time);
-		PendingIntent result = PendingIntent.getBroadcast(this, 0, notificationIntent, 0);
+		PendingIntent result = PendingIntent.getBroadcast(this, notificationID, notificationIntent, 0);
 		notificationID++;
 		return result;
 	}
