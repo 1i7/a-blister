@@ -22,8 +22,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import blister_pack.blister.NotificationService;
+import blister_pack.blister.ScheduleAlarmsService;
 import blister_pack.blister.R;
+import blister_pack.blister.ShowNotificationService;
 import blister_pack.blister.database.BlisterDatabase;
 import blister_pack.blister.database.tables.Course;
 
@@ -86,7 +87,8 @@ public class MainWindow extends ListWindow {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 
-		stopService(new Intent(this, NotificationService.class));
+		stopService(new Intent(this, ScheduleAlarmsService.class));
+		ShowNotificationService.disable();
 		NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		manager.cancelAll();
 		
@@ -105,7 +107,8 @@ public class MainWindow extends ListWindow {
 
 	@Override
 	protected void onDestroy() {
-		startService(new Intent(this, NotificationService.class));
+		ShowNotificationService.enable();
+		startService(new Intent(this, ScheduleAlarmsService.class));
 		super.onDestroy();
 	}
 	

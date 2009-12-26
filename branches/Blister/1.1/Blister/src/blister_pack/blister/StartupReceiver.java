@@ -8,6 +8,6 @@ public class StartupReceiver extends BroadcastReceiver
 {
 	public void onReceive(Context context, Intent intent)
 	{
-		context.startService(new Intent(context, NotificationService.class));
+		context.startService(new Intent(context, ScheduleAlarmsService.class));
 	}
 }

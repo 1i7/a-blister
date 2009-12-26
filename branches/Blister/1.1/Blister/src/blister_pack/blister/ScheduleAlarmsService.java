@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 import blister_pack.blister.database.BlisterDatabase;
 import blister_pack.blister.database.tables.Course;
 import blister_pack.blister.database.tables.OccuredNotification;
@@ -19,15 +21,19 @@ import blister_pack.blister.database.tables.PillNotification;
 import blister_pack.blister.windows.ConfirmActivity;
 import blister_pack.blister.windows.MissedNotificationsWindow;
 
-public class NotificationService extends Service {
+public class ScheduleAlarmsService extends Service {
+	
+	private static String TAG = "ScheduleAlarmsService";
+	
 	static int notificationID = 0;
 
 	NotificationManager manager;
+	AlarmManager alarmManager;
 	Notification notification;
 	Timer timer;
 	
 	// is used in scheduling notifications (see below)
-	private class NotificationTask extends TimerTask {
+	/*private class NotificationTask extends TimerTask {
 		String courseName;
 		Date time;
 
@@ -40,9 +46,9 @@ public class NotificationService extends Service {
 		public void run() {
 			showNotification(courseName, time);
 		}
-	}
+	}*/
 	
-	private class MissedNotificationsTask extends TimerTask {
+	/*private class MissedNotificationsTask extends TimerTask {
 		ArrayList<OccuredNotification> occuredNotifications;
 
 
@@ -56,7 +62,7 @@ public class NotificationService extends Service {
 				missedNotifications.add(new MissedNotification(occuredNotification));
 			showMissedNotification(missedNotifications);
 		}
-	}
+	}*/
 
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -71,15 +77,16 @@ public class NotificationService extends Service {
 		if (timer!=null)
 			timer.cancel();
 		timer = new Timer();
-		scheduleNotificationsOrStop();
+		alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		scheduleNotifications();
 	}
 
 	// schedules notifications or stops self if no further notifications needed
-	private void scheduleNotificationsOrStop() {
+	/*private void scheduleNotificationsOrStop() {
 		if (scheduleNotifications() == 0) {
 			stopSelf();
 		}
-	}
+	}*/
 	
 	@Override
 	public void onDestroy() {
@@ -90,17 +97,13 @@ public class NotificationService extends Service {
 			timer.cancel();
 	}
 
-	/**
-	 * Schedules all notifications according to the information in database
-	 * Schedules only notifications for current day and one task for the next 
-	 * day to schedule further notifications if necessary
-	 */
 	private int scheduleNotifications() {
-		BlisterDatabase database = BlisterDatabase.openDatabase(NotificationService.this);
+		BlisterDatabase database = BlisterDatabase.openDatabase(ScheduleAlarmsService.this);
 		ArrayList<OccuredNotification> occuredNotifications = database.getOccuredNotificationTable().selectAll();
 		int count = 0;
 		if (occuredNotifications.size()>0) {
-			timer.schedule(new MissedNotificationsTask(occuredNotifications), new Date());
+			showMissedNotification(getMissedNotifications(occuredNotifications));
+			//timer.schedule(new MissedNotificationsTask(occuredNotifications), new Date());
 			count++;
 		}
 		ArrayList<PillNotification> pillNotifications = database
@@ -132,9 +135,11 @@ public class NotificationService extends Service {
 
 					if (!pillNotificationCalendar.before(currentTimeCalendar)) {
 						Date pillNotificationDateTime = pillNotificationCalendar.getTime();
-
-						timer.schedule(new NotificationTask(pillNotification.courseName, pillNotificationDateTime),
-								pillNotificationDateTime);
+						Log.v(TAG,"Scheduling notification: "+pillNotification.courseName+": "+pillNotificationDateTime);
+						/*timer.schedule(new NotificationTask(pillNotification.courseName, pillNotificationDateTime),
+								pillNotificationDateTime);*/
+						alarmManager.set(AlarmManager.RTC_WAKEUP, pillNotificationDateTime.getTime(), 
+								getPendingIntent(pillNotification.courseName, pillNotificationDateTime));
 						count++;
 					}
 				}
@@ -148,43 +153,47 @@ public class NotificationService extends Service {
 			furtherNotificationCalendar.set(Calendar.HOUR_OF_DAY, 0);
 			furtherNotificationCalendar.set(Calendar.MINUTE, 0);
 			furtherNotificationCalendar.set(Calendar.SECOND, 0);
-			timer.schedule(new TimerTask() {
+			/*timer.schedule(new TimerTask() {
 				public void run() {
 					scheduleNotificationsOrStop();
 				}
-			}, furtherNotificationCalendar.getTime());
+			}, furtherNotificationCalendar.getTime());*/
+			alarmManager.set(AlarmManager.RTC_WAKEUP, furtherNotificationCalendar.getTimeInMillis(), 
+					getSchedulingPendingIntent());
 			count++;
 		}
+		stopSelf();
 		return count;
 	}
-
-	// shows notification
-	private void showNotification(String courseName, Date time) {
-		final String notificationTitle = getString(R.string.notification_title);
-		final String notificationMessage = getString(R.string.notification_message);
-		
-		BlisterDatabase db = BlisterDatabase.openDatabase(this);
-		// checking whether course has been already finished or not
-		Course course = db.getCourseTable().select(courseName);
-		if ((course.pillsRemained <= 0) && (course.duration <= 0)) {
-			return;
-		}
-		// inserting into OccuredNotification table
-		db.getOccuredNotificationTable().insert(courseName, time);
-
-		notification = new Notification(R.drawable.pills_man, notificationMessage, time.getTime());
-		//notification.defaults |= Notification.DEFAULT_ALL;
-		Intent confirmIntent = new Intent(NotificationService.this, ConfirmActivity.class);
-		confirmIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		confirmIntent.putExtra("notification_id", notificationID);
-		confirmIntent.putExtra("course_name", courseName).putExtra("time", time);
-		PendingIntent contentIntent = PendingIntent.getActivity(NotificationService.this, notificationID, 
-				confirmIntent, 0);
-		notification.setLatestEventInfo(NotificationService.this, notificationTitle, 
-				courseName + ": " + notificationMessage, contentIntent);
-		manager.notify(notificationID, notification);
-		
+	
+	PendingIntent getPendingIntent(String courseName, Date time) {
+		/*Intent notificationIntent = new Intent(ScheduleAlarmsService.this, ShowNotificationService.class);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		notificationIntent.putExtra("notification_id", notificationID);
+		notificationIntent.putExtra("course_name", courseName).putExtra("time", time);
+		PendingIntent result = PendingIntent.getService(ScheduleAlarmsService.this, notificationID, 
+				notificationIntent, 0);*/
+		Intent notificationIntent = new Intent(ScheduleAlarmsService.this,AlarmReceiver.class);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		notificationIntent.putExtra("notification_id", notificationID);
+		notificationIntent.putExtra("course_name", courseName).putExtra("time", time);
+		PendingIntent result = PendingIntent.getBroadcast(this, 0, notificationIntent, 0);
 		notificationID++;
+		return result;
+	}
+	
+	PendingIntent getSchedulingPendingIntent() {
+		Intent schedulingIntent = new Intent(ScheduleAlarmsService.this, ScheduleAlarmsService.class);
+		PendingIntent result = PendingIntent.getService(ScheduleAlarmsService.this, notificationID,	
+				schedulingIntent, 0);
+		return result;
+	}
+
+	ArrayList<MissedNotification> getMissedNotifications(ArrayList<OccuredNotification> occuredNotifications) {
+		ArrayList<MissedNotification> missedNotifications = new ArrayList<MissedNotification>();
+		for (OccuredNotification occuredNotification : occuredNotifications)
+			missedNotifications.add(new MissedNotification(occuredNotification));
+		return missedNotifications;
 	}
 	
 	private void showMissedNotification(ArrayList<MissedNotification> missedNotifications) {
@@ -205,9 +214,9 @@ public class NotificationService extends Service {
 		}
 		confirmIntent.putExtra("times", times);
 		confirmIntent.putExtra("names", names);
-		PendingIntent contentIntent = PendingIntent.getActivity(NotificationService.this, notificationID, confirmIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(ScheduleAlarmsService.this, notificationID, confirmIntent, 0);
 
-		notification.setLatestEventInfo(NotificationService.this, notificationTitle, notificationMessage, contentIntent);
+		notification.setLatestEventInfo(ScheduleAlarmsService.this, notificationTitle, notificationMessage, contentIntent);
 		manager.notify(notificationID, notification);
 		
 		notificationID++;
