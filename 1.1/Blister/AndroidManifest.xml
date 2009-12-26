@@ -40,7 +40,9 @@
 		</activity>
 		<activity android:name=".windows.ConfirmActivity"
 			android:label="Blister" android:theme="@android:style/Theme.Dialog" />
-		<service android:name="NotificationService" />
+		<service android:name="ScheduleAlarmsService" />
+		<service android:name="ShowNotificationService" android:process=":remote"/>
+		<receiver android:name="AlarmReceiver" android:process=":remote"/>
 		<activity android:label="Blister" android:name=".windows.MissedNotificationsWindow"></activity>
 		<activity android:label="@string/add_time_series_text"
 			android:name=".windows.AddRelativeTimeWindow" android:theme="@android:style/Theme.Dialog"></activity>
@@ -56,6 +58,7 @@
 			android:label="@string/get_bursaq_caption" />
 	</application>
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-	<uses-sdk
-        android:minSdkVersion="2" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-sdk android:minSdkVersion="2" />
 </manifest>
